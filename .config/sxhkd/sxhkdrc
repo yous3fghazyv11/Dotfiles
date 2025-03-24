@@ -1,0 +1,31 @@
+super + shift + {k,j,BackSpace}
+	Volume{ --inc, --dec, --toggle}
+
+super + shift + {h,l}
+	brightness {down,up}
+
+Print
+    flameshot gui
+
+super + e
+   emacsclient -c -a 'emacs' & 
+
+super + shift + e
+    killall emacs; /usr/bin/emacs --daemon && emacsclient -c -a 'emacs' &
+
+# switch language to arabic-english
+super + shift + a
+    setxkbmap -model pc104 -layout us,ara -variant  -option grp:toggle
+
+super + Escape
+	pkill -USR1 -x sxhkd; dunstify -u low -i ~/.config/bspwm/assets/reload.svg 'sxhkd' 'The configuration file has been reloaded successfully!'
+
+super + s
+    xrandr --ouput HDMI-0 --mode 1920x1080 --same-as eDP-1; feh --bg-scale ~/setup/walls/gruvbox1.png
+
+super + shift + s
+    xrandr --ouput HDMI-0 --auto --right-of eDP-1; feh --bg-scale ~/setup/walls/gruvbox1.png
+
+# Switch to Arabic keyboard layout with [super + space]
+# super + space
+   pkill -RTMIN+1 dwmblocks 

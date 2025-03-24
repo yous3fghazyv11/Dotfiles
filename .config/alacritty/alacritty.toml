@@ -1,0 +1,40 @@
+[general]
+import = ["~/.config/alacritty/themes/themes/xterm.toml"]
+live_config_reload = true
+
+[font]
+size = 10
+
+[font.normal]
+family = "JetBrains Mono NF"
+
+[cursor]
+blink_interval = 550
+unfocused_hollow = false
+thickness = 0.15
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "none"
+dynamic_title = true
+opacity = 1.0
+dynamic_padding = true
+
+[window.padding]
+x = 0
+y = 0
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[bell]
+animation = "Linear"
+duration = 0
+command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/dialog-error.oga"] }
