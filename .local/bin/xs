@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while true; do
+  xset r rate 250 30
+  sleep 5
+done

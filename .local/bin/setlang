@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the current layout using setxkbmap
+current_layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+
+# Check the current layout and switch accordingly
+if [[ "$current_layout" == "us" ]]; then
+    # Switch to Arabic layout (assuming the Arabic layout is 'ara')
+    setxkbmap -layout ara -option ctrl:swapcaps
+elif [[ "$current_layout" == "ara" ]]; then
+    # Switch to English (US) layout
+    setxkbmap -layout us -option ctrl:swapcaps
+else
+    echo "Unknown layout: $current_layout"
+    exit 1
+fi
+
+# Send SIGUSR1 to dwmblocks to trigger an update
+pkill -RTMIN+1 dwmblocks

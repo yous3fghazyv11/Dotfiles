@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+vol_dir="$HOME/.config/bspwm/src/assets"
+notify_cmd='dunstify -u low -h string:x-dunst-stack-tag:cvolum'
+
+# Get Volume
+get_volume() {
+    pamixer --get-volume-human | sed 's/%//'
+}
+
+# Notify
+notify_user() {
+    ${notify_cmd} -i "Volume : $(get_volume)%"
+}
+
+# Adjust Volume
+adjust_volume() {
+    [[ $(pamixer --get-mute) == true ]] && pamixer -u
+    pamixer --allow-boost --set-limit 150 "$1" "$2" && notify_user
+}
+
+# Toggle Mute
+toggle_mute() {
+    if [[ $(pamixer --get-mute) == false ]]; then
+        pamixer --toggle-mute
+        message="Mute"
+    else
+        pamixer --toggle-mute
+        message="Unmute"
+    fi
+    ${notify_cmd} -i "$message"
+}
+
+# Execute accordingly
+if command -v pamixer &>/dev/null; then
+    case "$1" in
+        --get) get_volume ;;
+        --inc) adjust_volume -i 5 ;;
+        --dec) adjust_volume -d 5 ;;
+        --toggle) toggle_mute ;;
+        *) echo "$(get_volume)%" ;;
+    esac
+else
+    ${notify_cmd} "'pamixer' is not installed."
+fi
+
+pkill -RTMIN+2 dwmblocks

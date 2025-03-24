@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ -z "$1" ]; then
+    echo "Usage: ./run.sh <source-file.cpp>"
+    exit 1
+fi
+
+# Get the source file name without the extension
+SOURCE_FILE="$1"
+OUTPUT_NAME="${SOURCE_FILE%.cpp}"
+
+# Check if the source file exists
+if [ ! -f "$SOURCE_FILE" ]; then
+    echo "Error: File '$SOURCE_FILE' not found."
+    exit 1
+fi
+
+# Compile the source file
+g++ -Wall "$SOURCE_FILE" -o "$OUTPUT_NAME"
+
+# Check if compilation was successful
+if [ $? -eq 0 ]; then
+    # Run the executable
+    ./$OUTPUT_NAME
+else
+    echo "Compilation failed."
+    exit 1
+fi
+

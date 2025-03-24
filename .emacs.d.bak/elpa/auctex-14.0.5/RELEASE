@@ -1,0 +1,114 @@
+Release notes for AUCTeX 13.3 with preview-latex
+================================================
+
+AUCTeX provides by far the most wide-spread and sophisticated
+environment for editing LaTeX, TeX, ConTeXt and Texinfo documents with
+Emacs.  Combined with packages like RefTeX, flyspell and others it is
+pretty much without peer as a comprehensive authoring solution for a
+large variety of operating system platforms and TeX distributions.  It
+supports document-dependent completion and syntax highlighting, easily
+accessible menus, jumping to error locations in the source file, a
+number of editing shortcuts, intelligent indentation and filling of
+text during entry, and WYSIWYG previews of graphical elements like
+math formulas right in the Emacs source buffer, by virtue of its
+preview-latex component.
+
+One part of the preview-latex subsystem is the central `preview.sty'
+file that is independently useful for a number of applications and is
+available in unbundled form from CTAN.[1]
+
+AUCTeX needs volunteers in particular for non-programming tasks:
+documentation writing, tutorials, translations, reference material,
+sleuth work, testing.
+
+New features and fixed bugs in this release
+-------------------------------------------
+
+AUCTeX now requires GNU Emacs 26.1 or higher.
+
+LaTeX abbrevs are now available in docTeX mode buffers.
+
+AUCTeX temporarily rebinds the variable ‘gc-cons-percentage’ to a
+higher value during parsing which speeds up the process
+significantly.  The memory pressure should still be acceptable,
+even on older machines.
+
+Macros provided by the ‘xparse’ package are part of LaTeX kernel
+since October 2020.  AUCTeX tracks this change and the content of
+‘xparse.el’ is moved into ‘latex.el’ and ‘font-latex.el’
+respectively.
+
+The variable ‘preview-scale-function’ is now allowed as a
+file-local variable where the assigned value can only be between
+0.1 and 10.
+
+Requirements
+------------
+
+It is required that you use at least GNU Emacs 27.1.
+
+The preview-latex subsystem requires image support.
+
+You'll also need a working LaTeX installation and Ghostscript.
+dvipng[2] (version 1.4 or later), a very fast DVI converter, can be
+used to speed up the conversion.
+
+Availability
+------------
+
+The easiest way for getting AUCTeX is installing it with GNU ELPA, see
+<URL:https://elpa.gnu.org/packages/auctex.html> for more information.
+Other download options are available at
+<URL:https://ftp.gnu.org/gnu/auctex/>.  At release time, we provide the
+source tarball.  You can also use versions of Emacs that already
+include AUCTeX or a software package management system for your
+operating system which provides you with the latest release.
+
+A separate directory for each release contains some stuff from the
+tarball, such as ChangeLog, printable manuals, and a reference sheet.
+The download area is mirrored to the directory support/auctex on CTAN.
+AUCTeX is licensed under the GNU General Public License version 3.
+
+You'll find more information at the web site of AUCTeX
+<URL:https://www.gnu.org/software/auctex/>, including its mailing list
+addresses.
+
+Future development and additional information
+---------------------------------------------
+
+AUCTeX is proceeding as a GNU project with the long-term intent of
+merging it into Emacs.  For that reason, all new contributors need to
+assign copyright to their contributions to the FSF (the usual
+procedure for Emacs contributors).  The same holds for past
+contributors.  The principal authors and maintainers have already done
+so, but it would require a diligent and diplomatic volunteer to find
+and ask the rest.
+
+Current AUCTeX managers are Arash Esbati, Mosè Giordano, and Tassilo
+Horn.  Everybody is welcome to contribute to the project by reporting
+bugs and suggesting improvements, but the most effective way of
+helping AUCTeX development remains volunteering for tasks.
+
+The following people contributed to this release series (in
+alphabetical order): Ivan Andrus, Ralf Angeli, Masayuki Ataka,
+Mohammad Hossein Bateni, Fabrice Ben Hamouda, Thomas Baumann, Vincent
+Belaïche, Berend de Boer, Alex Branham, Uwe Brauer, Ken Brown, Joshua
+Buhl, Jean-François Burnol, Patrice Dumas, Arash Esbati, Werner Fink,
+Miguel Frasson, Peter S. Galbraith, Mosè Giordano, Andrea Greselin,
+Patrick Gundlach, Abdul-Lateef Haji-Ali, Jobst Hoffmann, Tassilo Horn,
+Yvon Hevel, Orlando Iovino, Mads Jensen, Arne Jørgensen, Philip
+Kaludercic, David Kastrup, Ikumi Keita, Philip Kime, Oleh Krehel,
+Joost Kremers, Frank Küster, Jan-Åke Larsson, Matthew Leach, Brian
+Leung, Antoine Levitt, Leo Liu, Vladimir Lomov, Stefan Monnier, Paul
+Nelson, Dan Nicolaescu, Piet van Oostrum, Pieter Pareit, Nicolas
+Richard, Augusto Ritter Stoffel, Florent Rougon, Santiago Saavedra,
+Davide G. M. Salvetti, Rüdiger Sonderfeld, Holger Sparr, Mike Sperber,
+Reiner Steib, Christian Schlauer, Shiro Takeda, Mark Trettin, Tony
+Zorman (Please accept our apologies if we forgot somebody.)
+
+Footnotes:
+
+[1]  <URL:https://www.ctan.org/pkg/preview>
+
+[2]  dvipng is available via its project page
+<URL:https://savannah.nongnu.org/projects/dvipng> and from CTAN.
