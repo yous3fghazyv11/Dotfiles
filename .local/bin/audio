@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pactl load-module module-null-sink sink_name=combined_out
+pactl load-module module-loopback source=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor sink=combined_out
+pactl load-module module-loopback source=alsa_input.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo sink=combined_out

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# If wf-recorder is already running, stop it
+if pgrep -x "wf-recorder" > /dev/null; then
+    pkill -INT -x wf-recorder
+    notify-send -h string:wf-recorder:record -t 1000 "🎥 Finished Recording"
+    exit 0
+fi
+
+# Start recording
+notify-send --expire-time 1500 "🎬 Recording started"
+
+dateTime=$(date +%m-%d-%Y-%H:%M:%S)
+wf-recorder \
+    --bframes max_b_frames \
+    --audio=combined_out.monitor \
+    -f "$HOME/Videos/$dateTime.mp4" &
