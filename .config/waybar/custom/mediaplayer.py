@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 import gi
-gi.require_version("Playerctl", "2.0")
 from gi.repository import Playerctl, GLib
 from gi.repository.Playerctl import Player
 import argparse
 import logging
 import sys
 import signal
-import gi
 import json
 import os
 from typing import List
+gi.require_version("Playerctl", "2.0")
 
 logger = logging.getLogger(__name__)
 
@@ -116,8 +115,8 @@ class PlayerManager:
         if (len(artist) > 10):
             artist = artist[:10] + "..."
         title = player.get_title()
-        if (len(title) > 10):
-            title = title[:10] + "..."
+        if (len(title) > 15):
+            title = title[:15] + "..."
 
         # Escape '&' in both artist and title
         if artist is not None:
@@ -129,7 +128,7 @@ class PlayerManager:
         if player_name == "spotify" and "mpris:trackid" in metadata.keys() and ":ad:" in player.props.metadata["mpris:trackid"]:
             track_info = "Advertisement"
         elif artist is not None and title is not None:
-            track_info = f"{artist} - {title}"
+            track_info = f"{title}"
         else:
             track_info = title
 

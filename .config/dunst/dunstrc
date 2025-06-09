@@ -5,6 +5,7 @@ monitor = 0
 follow = mouse
 
 width = (500, 600)
+
 #height = (0, 200)
 origin = top-right
 offset = (40, 40)
@@ -31,10 +32,13 @@ sort = no
 idle_threshold = 0
 
 font = JetBrainsMono NF Medium 9
+
 line_height = 0
 
 markup = full
+
 format = "<span size='xx-large' font_desc='Cantarell 9' weight='bold' foreground='#7aa2f7'>%s</span>\n%b"
+
 alignment = center
 vertical_alignment = center
 
@@ -47,10 +51,11 @@ hide_duplicate_count = true
 show_indicators = yes
 
 enable_recursive_icon_lookup = true
-icon_theme = "TokyoNight-SE, Adwaita"
 icon_position = left
+
 min_icon_size = 60
 max_icon_size = 90
+
 icon_corner_radius = 6
 
 sticky_history = yes
