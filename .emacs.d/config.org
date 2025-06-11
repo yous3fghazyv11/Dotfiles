@@ -326,6 +326,8 @@
   )
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-c x") 'compile)
+(global-set-key (kbd "C-c m") 'magit)
+(global-set-key (kbd "C-c a") 'org-agenda)
 #+end_src
 
 * ALL THE ICONS
