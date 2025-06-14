@@ -69,6 +69,7 @@
   - [[#surround][Surround]]
   - [[#yuck][yuck]]
   - [[#c-programming][C Programming]]
+  - [[#geiser][geiser]]
   - [[#folding][Folding]]
   - [[#indent-guide][Indent guide]]
   - [[#syntax-highlihgting][Syntax highlihgting]]
@@ -1045,6 +1046,17 @@ Org-tempo is not a separate package but a module within org that can be enabled.
             (setq c++-basic-offset 4)
             (c-set-offset 'substatement-open 0)  ; Align braces with control statements
             (electric-indent-local-mode 1)))     ; Auto-indent
+#+end_src
+
+** geiser
+#+begin_src emacs-lisp
+(use-package geiser
+  :ensure t
+  :config
+  (setq geiser-default-implementation 'mit)
+  (setq geiser-active-implementations '(mit)))
+(use-package geiser-mit
+  :ensure t)
 #+end_src
 
 ** Folding 
