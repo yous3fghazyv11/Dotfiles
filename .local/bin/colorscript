@@ -1,0 +1,97 @@
+#!/bin/sh
+# Author: gh0stzk
+# Revision Date: 09.02.2025 10:00:58
+# Repository: https://github.com/gh0stzk/dotfiles
+# ----------------------------------------------------------------------------
+# Simple CLI for shell-color-scripts
+#
+# This is my modified version of the shell-color-scripts from
+# https://github.com/charitarthchugh/shell-color-scripts
+#
+# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
+# Licensed under GPL-3.0 license
+# ----------------------------------------------------------------------------
+
+DIR_COLORSCRIPTS="$HOME/.local/share/asciiart"
+
+# Load scripts into an array
+color_scripts=$(ls "$DIR_COLORSCRIPTS" 2>/dev/null)
+length_colorscripts=$(printf '%s\n' "$color_scripts" | wc -l)
+
+_help() {
+    echo "Description: A collection of terminal color scripts."
+    echo
+    echo "Usage: colorscript [OPTION] [SCRIPT NAME/INDEX]"
+    echo
+    printf "  %-3s\t%s\n" \
+        "-h" "Print this help." \
+        "-l" "List all installed color scripts." \
+        "-r" "Run a random color script." \
+        "-e" "Run a specified color script by NAME or INDEX."
+}
+
+_list() {
+    echo "There are $length_colorscripts installed color scripts:"
+    i=1
+    for script in $color_scripts; do
+        printf "%d\t%s\n" "$i" "$script"
+        i=$((i + 1))
+    done
+}
+
+_random() {
+    random_index=$(od -An -N2 -tu2 /dev/urandom | awk -v max="$length_colorscripts" '{print ($1 % max) + 1}')
+    chosen_script=$(printf '%s\n' $color_scripts | sed -n "${random_index}p")
+    exec "$DIR_COLORSCRIPTS/$chosen_script"
+}
+
+_run_colorscript() {
+    input="$1"
+    if printf '%s\n' "$input" | grep -Eq '^[0-9]+$'; then
+        if [ "$input" -lt 1 ] || [ "$input" -gt "$length_colorscripts" ]; then
+            echo "Error: Invalid index '$input'. Use 1-$length_colorscripts." >&2
+            exit 1
+        fi
+        script_name=$(printf '%s\n' $color_scripts | sed -n "${input}p")
+    else
+        if [ ! -f "$DIR_COLORSCRIPTS/$input" ]; then
+            echo "Error: The '$input' script does not exist." >&2
+            exit 1
+        fi
+        script_name="$input"
+    fi
+    exec "$DIR_COLORSCRIPTS/$script_name"
+}
+
+# Process arguments
+case "$#" in
+    0)
+        _help
+        ;;
+    1)
+        case "$1" in
+            -h) _help ;;
+            -l) _list ;;
+            -r) _random ;;
+            *)
+                echo "Error: Invalid option '$1'." >&2
+                exit 1
+                ;;
+        esac
+        ;;
+    2)
+        case "$1" in
+            -e)
+                _run_colorscript "$2"
+                ;;
+            *)
+                echo "Error: Invalid option '$1'." >&2
+                exit 1
+                ;;
+        esac
+        ;;
+    *)
+        echo "Input error, too many arguments." >&2
+        exit 1
+        ;;
+esac
