@@ -451,16 +451,16 @@ Defining the various fonts that Emacs will use.
 ** Setting the Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-                    :font "JetBrains Mono"
-                    :height 120
+                    :font "Iosevka"
+                    :height 140
                     :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-                    :font "JetBrains Mono"
-                    :height 120
+                    :font "Iosevka"
+                    :height 140
                     :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-                    :font "JetBrains Mono"
-                    :height 120
+                    :font "Iosevka"
+                    :height 140
                     :weight 'medium)
 ;; Makes commented text and keywords italics.
 ;; This is working in emacsclient but not emacs.
@@ -473,7 +473,7 @@ Defining the various fonts that Emacs will use.
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-12"))
+(add-to-list 'default-frame-alist '(font . "Iosevka-14"))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 ;; (setq-default line-spacing 0.12)
@@ -957,9 +957,12 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (racket-mode . lsp)
          (python-mode . lsp)
+         (python-ts-mode . lsp)
          (c++-mode . lsp)
+         (c++-ts-mode . lsp)
          (sh-mode . lsp)
          (c-mode . lsp)
+         (c-ts-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
@@ -1046,6 +1049,13 @@ Org-tempo is not a separate package but a module within org that can be enabled.
             (setq c++-basic-offset 4)
             (c-set-offset 'substatement-open 0)  ; Align braces with control statements
             (electric-indent-local-mode 1)))     ; Auto-indent
+(defun my/c++-ts-mode-setup ()
+  "Set 4-space indentation in c++-ts-mode using treesit-simple-indent."
+  (setq-local indent-tabs-mode nil)          ;; use spaces, not tabs
+  (setq-local tab-width 4)                   ;; visual width of a tab
+  (setq-local c-ts-mode-indent-offset 4))    ;; actual indent width
+
+(add-hook 'c++-ts-mode-hook #'my/c++-ts-mode-setup)
 #+end_src
 
 ** geiser
@@ -1084,23 +1094,23 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ** Syntax highlihgting
 #+begin_src emacs-lisp
-(setq treesit-font-lock-level 4)
-;; (add-to-list 'major-mode-remap-alist
-;;              '(python-mode . python-ts-mode)
-;;              '(c-mode . c-ts-mode)
-;;              '(c++-mode . c++-ts-mode))
-;; (add-to-list 'auto-mode-alist '("\\.c\\'" . c-ts-mode))
-;; (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-ts-mode))
-;; Enable Tree-sitter
+;;Enable Tree-sitter
 (use-package tree-sitter
   :ensure t
   :config
-  (add-hook 'prog-mode-hook #'tree-sitter-hl-mode))
+  (add-hook 'sh-mode-hook #'tree-sitter-hl-mode))
 
 ;; Load the C grammar
 (use-package tree-sitter-langs
   :ensure t
   :after tree-sitter)
+(setq treesit-font-lock-level 4)
+(add-to-list 'major-mode-remap-alist
+             '(python-mode . python-ts-mode)
+             '(c-mode . c-ts-mode)
+             '(c++-mode . c++-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.c\\'" . c-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-ts-mode))
 #+end_src
 
 ** discord recover wife
