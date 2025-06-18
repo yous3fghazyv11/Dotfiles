@@ -171,8 +171,7 @@
   (define-key evil-visual-state-map (kbd "C-e") #'my/evil-end-of-line)
   ;; ESC to quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (evil-set-undo-system 'undo-redo)
-  )
+  (evil-set-undo-system 'undo-redo))
 
 ;; Key-chord for jk escape
 (use-package key-chord
@@ -189,7 +188,7 @@
   :after company
   :after evil
   :config
-  (setq evil-collection-mode-list '(company dashboard dired ibuffer))
+  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
   (setq evil-collection-company-complete-in-complete-state nil)
   (evil-collection-init))
 #+end_src
@@ -744,6 +743,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
                                 ("mkv" . "mpv")
                                 ("mp4" . "mpv")
                                 ("pdf" . "zathura"))))
+(use-package dirvish)
 #+end_src
 
 * SUDO EDIT
@@ -786,7 +786,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (setq spacious-padding-widths
       '( :internal-border-width 30
          :header-line-width 2
-         :mode-line-width 12
+         :mode-line-width 6
          :tab-width 6
          :right-divider-width 30
          :scroll-bar-width 15
@@ -801,9 +801,9 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
 ;; is very flexible and provides several examples.
-(setq spacious-padding-subtle-mode-line
-      `( :mode-line-active 'default
-         :mode-line-inactive vertical-border))
+;; (setq spacious-padding-subtle-mode-line
+;;       `( :mode-line-active 'default
+;;          :mode-line-inactive vertical-border))
 
 (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
 #+end_src
@@ -953,7 +953,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "SPC l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (racket-mode . lsp)
          (python-mode . lsp)
