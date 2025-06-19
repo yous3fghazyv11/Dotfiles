@@ -158,6 +158,25 @@
   (setq evil-split-window-below t)
   :config
   (evil-mode)
+;; ;; Evil-states per major mode
+;;   (setq evil-default-state 'emacs)
+;;   (setq evil-normal-state-modes '(fundamental-mode
+;;                                   ssh-config-mode
+;;                                   conf-mode
+;;                                   prog-mode
+;;                                   text-mode
+;;                                   repos-mode
+;;                                   dired-mode
+;;                                   dashboard-mode))
+  ;; Minor mode evil states
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+
+  ;; Per mode cursors
+  (setq evil-insert-state-cursor '(box "green"))
+  (setq evil-normal-state-cursor '(box "yellow"))
+  (setq evil-emacs-state-cursor '(bar "red"))
+  (setq evil-replace-state-cursor '(box "purple"))
+  (setq evil-visual-state-cursor '(box "blue"))
 
   (define-key evil-normal-state-map (kbd "C-d") #'my/evil-scroll-down-and-center)
   (define-key evil-normal-state-map (kbd "C-u") #'my/evil-scroll-up-and-center)
@@ -183,14 +202,33 @@
   (with-eval-after-load 'evil
     (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
 
-;; Evil extras
-(use-package evil-collection
-  :after company
-  :after evil
-  :config
-  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
-  (setq evil-collection-company-complete-in-complete-state nil)
-  (evil-collection-init))
+;; ;; Evil extras
+;; (use-package evil-collection
+;;   :after company
+;;   :after evil
+;;   :config
+;;   ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
+;;   (setq evil-collection-company-complete-in-complete-state nil)
+;;   (evil-collection-init))
+
+;; List of modes where evil-mode should be disabled
+(defvar my/evil-excluded-modes
+  '(dired-mode
+    org-agenda-mode
+    calendar-mode
+    ibuffer-mode
+    help-mode
+    comint-mode
+    messages-buffer-mode)
+    ;; special-mode)
+  "Major modes in which evil-mode should be disabled.")
+
+(defun my/conditionally-disable-evil-mode ()
+  "Disable evil-mode in buffers where it's not appropriate."
+  (when (apply #'derived-mode-p my/evil-excluded-modes)
+    (evil-local-mode -1)))
+
+(add-hook 'evil-mode-hook #'my/conditionally-disable-evil-mode)
 #+end_src
 
 * IVY AND COUNSEL
@@ -472,7 +510,7 @@ Defining the various fonts that Emacs will use.
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "Iosevka-14"))
+(add-to-list 'default-frame-alist '(font . "Iosevka-13.5"))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 ;; (setq-default line-spacing 0.12)
@@ -525,9 +563,9 @@ Let's make GNU Emacs look a little better.
   (custom-set-faces
    '(internal-border ((t (:background "#000000"))))
    '(highlight-indent-guides-character-face ((t (:foreground "dim gray"))))
-   ;; '(org-block ((t (:background "#000000" :extend t))))
-   ;; '(org-block-begin-line ((t (:background "#000000" :extend t))))
-   ;; '(org-block-end-line ((t (:background "#000000" :extend t))))
+   '(org-block ((t (:background "#000000" :extend t))))
+   '(org-block-begin-line ((t (:background "#000000" :extend t))))
+   '(org-block-end-line ((t (:background "#000000" :extend t))))
    '(org-level-1 ((t (:inherit outline-1 :height 2.0))))
    '(org-level-2 ((t (:inherit outline-2 :height 1.8))))
    '(org-level-3 ((t (:inherit outline-3 :height 1.6))))
@@ -654,8 +692,9 @@ Org-bullets gives us attractive bullets rather than asterisks.
 ** Source Code Block Tag Expansion
 Org-tempo is not a separate package but a module within org that can be enabled.  Org-tempo allows for '<s' followed by TAB to expand to a begin_src tag.  Other expansions available include:
 
-| Typing the below + TAB | Expands to ...                          |
-|------------------------+-----------------------------------------|
+
+| Typing the below + TAB | Expands to ...                           |
+|------------------------+------------------------------------------|
 | <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
 | <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
 | <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
@@ -692,15 +731,24 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ** Org-modern
 #+begin_src emacs-lisp
-;; (use-package org-modern
-;;   :ensure t
-;;   :hook (org-mode . org-modern-mode)
-;;   :config
-;;   ;; Disable everything else
-;;   (setq org-modern-star '("" "")  ; Empty strings for both prefix and suffix
-;;         org-modern-hide-stars t   ; Ensure stars are hidden
-;;         org-indent-mode nil
-;;         org-hide-leading-stars t))
+(use-package org-modern
+  :ensure t
+  :hook (org-mode . org-modern-mode)
+  :config
+  ;; Disable everything else
+  (setq org-modern-table t               ;; no table styling
+        org-modern-keyword nil             ;; keep #+keywords normal
+        org-modern-block-fringe nil        ;; no fringe decoration
+        org-modern-todo nil                ;; keep TODO keywords normal
+        org-modern-tag nil                 ;; no special tag style
+        org-modern-statistics nil          ;; don't prettify [1/3]
+        org-modern-priority nil            ;; no special priority symbol
+        org-modern-horizontal-rule nil     ;; disable HR line styling
+        org-modern-checkbox nil)           ;; keep checkboxes normal
+        org-modern-star '("" "")  ; Empty strings for both prefix and suffix
+        org-modern-hide-stars t   ; Ensure stars are hidden
+        org-indent-mode nil
+        org-hide-leading-stars t)
 #+end_src
 
 * Naviagation
@@ -743,7 +791,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
                                 ("mkv" . "mpv")
                                 ("mp4" . "mpv")
                                 ("pdf" . "zathura"))))
-(use-package dirvish)
+
 #+end_src
 
 * SUDO EDIT
@@ -850,6 +898,11 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 ** pairs
 #+begin_src emacs-lisp
 (electric-pair-mode)
+
+(defun my/inhibit-angle-bracket-pairing (char)
+  (eq char ?<)) ;; inhibit pairing for '<'
+(setq electric-pair-inhibit-predicate #'my/inhibit-angle-bracket-pairing)
+
 (setq org-edit-src-content-indentation 0) ;; Set src block automatic indent to 0 instead of 2.
 (use-package rainbow-delimiters
   :ensure t 
@@ -953,7 +1006,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "SPC l")
+  (setq lsp-keymap-prefix "C-c l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (racket-mode . lsp)
          (python-mode . lsp)
