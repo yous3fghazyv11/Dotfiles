@@ -26,7 +26,7 @@ horizontal_padding = 15
 text_icon_padding = 0
 
 frame_width = 2
-frame_color = "#FFFFFF"
+frame_color = "#d79921"
 
 sort = no
 idle_threshold = 0
@@ -37,7 +37,7 @@ line_height = 0
 
 markup = full
 
-format = "<span size='xx-large' font_desc='Cantarell 9' weight='bold' foreground='#7aa2f7'>%s</span>\n%b"
+format = "<span size='xx-large' font_desc='Cantarell 9' weight='bold' foreground='#ebdbb2'>%s</span>\n%b"
 
 alignment = center
 vertical_alignment = center
@@ -85,17 +85,17 @@ class = Dunst
 [urgency_low]
 timeout = 10
 background = "#000000"
-foreground = "#9ece6a"
+foreground = "#b8bb26"
 
 [urgency_normal]
 timeout = 10
 background = "#000000"
-foreground = "#a9b1d6"
+foreground = "#b8bb26"
 
 [urgency_critical]
 timeout = 0
 background = "#000000"
-foreground = "#f7768e"
+foreground = "#b8bb26"
 
 [flameshot_ignore]
     appname = flameshot

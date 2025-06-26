@@ -29,6 +29,7 @@
   - [[#dashboard][Dashboard]]
   - [[#highlight-line][Highlight line]]
   - [[#uniline][uniline]]
+  - [[#posframe][posframe]]
 - [[#org-mode][ORG MODE]]
   - [[#agenda-files][Agenda Files]]
   - [[#enhancements][Enhancements]]
@@ -39,6 +40,7 @@
   - [[#disable-line-numbers][Disable line numbers]]
   - [[#org-keybindings][Org keybindings]]
   - [[#org-appear][org-appear]]
+  - [[#flyspell][flyspell]]
   - [[#org-modern][Org-modern]]
 - [[#naviagation][Naviagation]]
 - [[#projectile][PROJECTILE]]
@@ -169,7 +171,7 @@
 ;;                                   dired-mode
 ;;                                   dashboard-mode))
   ;; Minor mode evil states
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+;;  (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
   ;; Per mode cursors
   (setq evil-insert-state-cursor '(box "green"))
@@ -202,33 +204,14 @@
   (with-eval-after-load 'evil
     (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
 
-;; ;; Evil extras
-;; (use-package evil-collection
-;;   :after company
-;;   :after evil
-;;   :config
-;;   ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
-;;   (setq evil-collection-company-complete-in-complete-state nil)
-;;   (evil-collection-init))
-
-;; List of modes where evil-mode should be disabled
-(defvar my/evil-excluded-modes
-  '(dired-mode
-    org-agenda-mode
-    calendar-mode
-    ibuffer-mode
-    help-mode
-    comint-mode
-    messages-buffer-mode)
-    ;; special-mode)
-  "Major modes in which evil-mode should be disabled.")
-
-(defun my/conditionally-disable-evil-mode ()
-  "Disable evil-mode in buffers where it's not appropriate."
-  (when (apply #'derived-mode-p my/evil-excluded-modes)
-    (evil-local-mode -1)))
-
-(add-hook 'evil-mode-hook #'my/conditionally-disable-evil-mode)
+;; Evil extras
+(use-package evil-collection
+  :after company
+  :after evil
+  :config
+  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
+  (setq evil-collection-company-complete-in-complete-state nil)
+  (evil-collection-init))
 #+end_src
 
 * IVY AND COUNSEL
@@ -295,7 +278,7 @@
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive) (find-file "~/.emacs.d/config.org")) :wk "Edit emacs config")
     "f r" '(counsel-recentf :wk "Find recent files")
-    "f m p" '((lambda () (interactive) (find-file "~/org/roadmap.org")) :wk "Roadmap")
+    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "Roadmap")
     "TAB TAB" '(comment-line :wk "Comment lines"))
 
   (yousef/leader-keys
@@ -553,13 +536,11 @@ Let's make GNU Emacs look a little better.
 ** Theme
 #+begin_src emacs-lisp
 
-(use-package ef-themes
+(use-package gruvbox-theme
   :config
   (custom-set-variables
-   '(custom-enabled-themes '(ef-dark))
-   '(custom-safe-themes
-     '("1ad12cda71588cc82e74f1cabeed99705c6a60d23ee1bb355c293ba9c000d4ac"
-       default)))
+   '(custom-enabled-themes '(gruvbox-dark-hard)))
+(set-face-background 'default "#000000")
   (custom-set-faces
    '(internal-border ((t (:background "#000000"))))
    '(highlight-indent-guides-character-face ((t (:foreground "dim gray"))))
@@ -650,12 +631,27 @@ Let's make GNU Emacs look a little better.
 (use-package uniline)
 #+end_src
 
+** posframe
+#+begin_src emacs-lisp
+(use-package posframe
+  :ensure t)
+
+(use-package ivy-posframe
+  :ensure t
+  :after ivy
+  :custom
+  (ivy-posframe-display-functions-alist
+   '((t . ivy-posframe-display-at-frame-center)))
+  :config
+  (ivy-posframe-mode 1))
+#+end_src
+
 * ORG MODE
 ** Agenda Files
 #+begin_src emacs-lisp
 (setq org-agenda-files '("/home/yousef/org/diary.org" 
                          "/home/yousef/org/my_todo_list.org" 
-                         "/home/yousef/org/roadmap.org" 
+                         "/home/yousef/org/study.org" 
                          "/home/yousef/org/25_todo_list.org"))
 #+end_src
 
@@ -684,7 +680,7 @@ Let's make GNU Emacs look a little better.
 ** Enabling Org Bullets
 Org-bullets gives us attractive bullets rather than asterisks.
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
+;;(add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
@@ -729,6 +725,11 @@ Org-tempo is not a separate package but a module within org that can be enabled.
     (add-hook 'org-mode-hook 'org-appear-mode))
 #+end_src
 
+** flyspell
+#+begin_src 
+(add-hook 'org-mode-hook 'flyspell-mode)
+#+end_src
+
 ** Org-modern
 #+begin_src emacs-lisp
 (use-package org-modern
@@ -736,19 +737,12 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   :hook (org-mode . org-modern-mode)
   :config
   ;; Disable everything else
-  (setq org-modern-table t               ;; no table styling
-        org-modern-keyword nil             ;; keep #+keywords normal
-        org-modern-block-fringe nil        ;; no fringe decoration
+  (setq org-modern-keyword nil             ;; keep #+keywords normal
         org-modern-todo nil                ;; keep TODO keywords normal
-        org-modern-tag nil                 ;; no special tag style
-        org-modern-statistics nil          ;; don't prettify [1/3]
-        org-modern-priority nil            ;; no special priority symbol
-        org-modern-horizontal-rule nil     ;; disable HR line styling
-        org-modern-checkbox nil)           ;; keep checkboxes normal
-        org-modern-star '("" "")  ; Empty strings for both prefix and suffix
-        org-modern-hide-stars t   ; Ensure stars are hidden
-        org-indent-mode nil
-        org-hide-leading-stars t)
+        org-hide-leading-stars t))
+(custom-set-faces
+ '(org-modern-block ((t (:background "#1e1e1e" :foreground "#bbbbbb" :inherit fixed-pitch)))))
+
 #+end_src
 
 * Naviagation
@@ -829,7 +823,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 ** spacious-padding
 #+begin_src emacs-lisp
 (use-package spacious-padding
-  :after ef-themes
+  :after gruvbox-theme
   :config (spacious-padding-mode 1))
 (setq spacious-padding-widths
       '( :internal-border-width 30
@@ -849,9 +843,9 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
 ;; is very flexible and provides several examples.
-;; (setq spacious-padding-subtle-mode-line
-;;       `( :mode-line-active 'default
-;;          :mode-line-inactive vertical-border))
+(setq spacious-padding-subtle-mode-line
+      `( :mode-line-active 'default
+         :mode-line-inactive vertical-border))
 
 (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
 #+end_src

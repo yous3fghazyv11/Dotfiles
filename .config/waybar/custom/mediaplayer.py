@@ -18,7 +18,6 @@ def signal_handler(sig, frame):
     logger.info("Received signal to stop, exiting")
     sys.stdout.write("\n")
     sys.stdout.flush()
-    # loop.quit()
     sys.exit(0)
 
 
@@ -86,12 +85,9 @@ class PlayerManager:
         players = self.get_players()
         logger.debug(f"Getting first playing player from {len(players)} players")
         if len(players) > 0:
-            # if any are playing, show the first one that is playing
-            # reverse order, so that the most recently added ones are preferred
             for player in players[::-1]:
                 if player.props.status == "Playing":
                     return player
-            # if none are playing, show the first one
             return players[0]
         else:
             logger.debug("No players found")
@@ -99,9 +95,6 @@ class PlayerManager:
 
     def show_most_important_player(self):
         logger.debug("Showing most important player")
-        # show the currently playing player
-        # or else show the first paused player
-        # or else show nothing
         current_player = self.get_first_playing_player()
         if current_player is not None:
             self.on_metadata_changed(current_player, current_player.props.metadata)
@@ -118,7 +111,6 @@ class PlayerManager:
         if (len(title) > 15):
             title = title[:15] + "..."
 
-        # Escape '&' in both artist and title
         if artist is not None:
             artist = artist.replace("&", "&amp;")
         if title is not None:
@@ -163,12 +155,10 @@ class PlayerManager:
 def parse_arguments():
     parser = argparse.ArgumentParser()
 
-    # Increase verbosity with every occurrence of -v
     parser.add_argument("-v", "--verbose", action="count", default=0)
 
     parser.add_argument("-x", "--exclude", "- Comma-separated list of excluded player")
 
-    # Define for which player we"re listening
     parser.add_argument("--player")
 
     parser.add_argument("--enable-logging", action="store_true")
@@ -179,15 +169,12 @@ def parse_arguments():
 def main():
     arguments = parse_arguments()
 
-    # Initialize logging
     if arguments.enable_logging:
         logfile = os.path.join(os.path.dirname(
             os.path.realpath(__file__)), "media-player.log")
         logging.basicConfig(filename=logfile, level=logging.DEBUG,
                             format="%(asctime)s %(name)s %(levelname)s:%(lineno)d %(message)s")
 
-    # Logging is set by default to WARN and higher.
-    # With every occurrence of -v it's lowered by one
     logger.setLevel(max((3 - arguments.verbose) * 10, 0))
 
     logger.info("Creating player manager")

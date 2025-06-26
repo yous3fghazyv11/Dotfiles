@@ -137,8 +137,9 @@ alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias music="ncmpcpp"
 
 alias cat="bat --theme=base16"
-alias ls='lsd'
-alias ll='lsd -la'
+alias ls='exa'
+alias ll='exa -l'
+alias lla='exa -la'
 alias nv='nvim'
 alias sd="cd ~ && cd \$(find * -type d | fzf)"
 alias cpdf="pdflatex -shell-escape book.tex ; zathura book.pdf & disown"
@@ -149,3 +150,7 @@ set -o vi
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴
 export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+eval "$(starship init zsh)"
+
+colorscript -r

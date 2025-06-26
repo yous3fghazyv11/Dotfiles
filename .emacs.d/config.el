@@ -119,14 +119,14 @@
   (with-eval-after-load 'evil
     (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
 
-;; ;; Evil extras
-;; (use-package evil-collection
-;;   :after company
-;;   :after evil
-;;   :config
-;;   ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
-;;   (setq evil-collection-company-complete-in-complete-state nil)
-;;   (evil-collection-init))
+;; Evil extras
+(use-package evil-collection
+  :after company
+  :after evil
+  :config
+  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
+  (setq evil-collection-company-complete-in-complete-state nil)
+  (evil-collection-init))
 
 ;; List of modes where evil-mode should be disabled
 (defvar my/evil-excluded-modes
@@ -205,7 +205,7 @@
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive) (find-file "~/.emacs.d/config.org")) :wk "Edit emacs config")
     "f r" '(counsel-recentf :wk "Find recent files")
-    "f m p" '((lambda () (interactive) (find-file "~/org/roadmap.org")) :wk "Roadmap")
+    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "Roadmap")
     "TAB TAB" '(comment-line :wk "Comment lines"))
 
   (yousef/leader-keys
@@ -426,13 +426,11 @@ one, an error is signaled."
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 
-(use-package ef-themes
+(use-package gruvbox-theme
   :config
   (custom-set-variables
-   '(custom-enabled-themes '(ef-dark))
-   '(custom-safe-themes
-     '("1ad12cda71588cc82e74f1cabeed99705c6a60d23ee1bb355c293ba9c000d4ac"
-       default)))
+   '(custom-enabled-themes '(gruvbox-dark-hard)))
+(set-face-background 'default "#000000")
   (custom-set-faces
    '(internal-border ((t (:background "#000000"))))
    '(highlight-indent-guides-character-face ((t (:foreground "dim gray"))))
@@ -499,9 +497,21 @@ one, an error is signaled."
 
 (use-package uniline)
 
+(use-package posframe
+  :ensure t)
+
+(use-package ivy-posframe
+  :ensure t
+  :after ivy
+  :custom
+  (ivy-posframe-display-functions-alist
+   '((t . ivy-posframe-display-at-frame-center)))
+  :config
+  (ivy-posframe-mode 1))
+
 (setq org-agenda-files '("/home/yousef/org/diary.org" 
                          "/home/yousef/org/my_todo_list.org" 
-                         "/home/yousef/org/roadmap.org" 
+                         "/home/yousef/org/study.org" 
                          "/home/yousef/org/25_todo_list.org"))
 
 (setq org-ellipsis " ▾")
@@ -517,7 +527,7 @@ one, an error is signaled."
 ;;   :config
 ;;   (org-depend-initialize))
 
-(add-hook 'org-mode-hook 'org-indent-mode)
+;;(add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
@@ -538,19 +548,11 @@ one, an error is signaled."
   :hook (org-mode . org-modern-mode)
   :config
   ;; Disable everything else
-  (setq org-modern-table t               ;; no table styling
-        org-modern-keyword nil             ;; keep #+keywords normal
-        org-modern-block-fringe nil        ;; no fringe decoration
+  (setq org-modern-keyword nil             ;; keep #+keywords normal
         org-modern-todo nil                ;; keep TODO keywords normal
-        org-modern-tag nil                 ;; no special tag style
-        org-modern-statistics nil          ;; don't prettify [1/3]
-        org-modern-priority nil            ;; no special priority symbol
-        org-modern-horizontal-rule nil     ;; disable HR line styling
-        org-modern-checkbox nil)           ;; keep checkboxes normal
-        org-modern-star '("" "")  ; Empty strings for both prefix and suffix
-        org-modern-hide-stars t   ; Ensure stars are hidden
-        org-indent-mode nil
-        org-hide-leading-stars t)
+        org-hide-leading-stars t))
+(custom-set-faces
+ '(org-modern-block ((t (:background "#1e1e1e" :foreground "#bbbbbb" :inherit fixed-pitch)))))
 
 (use-package avy
   :bind (("C-;" . avy-goto-char-timer))  ; Example: Jump to char with timer
@@ -606,7 +608,7 @@ one, an error is signaled."
         which-key-separator " → " ))
 
 (use-package spacious-padding
-  :after ef-themes
+  :after gruvbox-theme
   :config (spacious-padding-mode 1))
 (setq spacious-padding-widths
       '( :internal-border-width 30
@@ -626,9 +628,9 @@ one, an error is signaled."
 
 ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
 ;; is very flexible and provides several examples.
-;; (setq spacious-padding-subtle-mode-line
-;;       `( :mode-line-active 'default
-;;          :mode-line-inactive vertical-border))
+(setq spacious-padding-subtle-mode-line
+      `( :mode-line-active 'default
+         :mode-line-inactive vertical-border))
 
 (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
 
@@ -847,7 +849,7 @@ one, an error is signaled."
 
 (use-package highlight-indent-guides
   :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode)
+  ;;:hook (prog-mode . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-responsive 'top) ; Highlight current scope
   (setq highlight-indent-guides-auto-enabled nil)
