@@ -228,20 +228,11 @@ label:focus {
 #custom-power {
     margin: 0px 15px;
 }
-.custom-spotify {
+#custom-spotify {
     color: #689d6a;
-    border-radius: 5px;
     margin-left: 5px;
 }
 
-#custom-cava {
-    color: #689d6a;
-    border-left: 0px;
-    border-right: 0px;
-    padding-bottom: 6px;
-    font-family: "bargraph";
-    font-size: 22px;
-}
 
 #cava {
     font-family: monospace;
@@ -250,6 +241,7 @@ label:focus {
     color: #000000;
     padding: 0 15px;
     border-radius: 5px;
+    margin-left: 10px;
 }
 
 #custom-seperator {

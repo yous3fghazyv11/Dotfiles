@@ -6,10 +6,10 @@
 
 * TABLE OF CONTENTS :TOC:
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
-  - [[#elpaca-package-manager][Elpaca Package Manager]]
-  - [[#load-evil-mode][Load Evil Mode]]
+  - [[#elpaca-package-manager][ELPACA PACKAGE MANAGER]]
+  - [[#load-evil-mode][LOAD EVIL MODE]]
 - [[#ivy-and-counsel][IVY AND COUNSEL]]
-- [[#keybindings][Keybindings]]
+- [[#keybindings][KEYBINDINGS]]
 - [[#all-the-icons][ALL THE ICONS]]
 - [[#custom-functions][CUSTOM FUNCTIONS]]
   - [[#evil-scroll][EVIL SCROLL]]
@@ -17,68 +17,69 @@
   - [[#buffer-move][BUFFER MOVE]]
   - [[#reload-emacs][RELOAD EMACS]]
 - [[#fonts][FONTS]]
-  - [[#setting-the-font-face][Setting the Font Face]]
-  - [[#ligatures][Ligatures]]
-  - [[#zooming-inout][Zooming In/Out]]
+  - [[#setting-the-font-face][SETTING THE FONT FACE]]
+  - [[#ligatures][LIGATURES]]
+  - [[#zooming-inout][ZOOMING IN/OUT]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
-  - [[#theme][Theme]]
-  - [[#options][options]]
-  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
-  - [[#mode-line][Mode-line]]
-  - [[#transparency][Transparency]]
-  - [[#dashboard][Dashboard]]
-  - [[#highlight-line][Highlight line]]
-  - [[#uniline][uniline]]
-  - [[#posframe][posframe]]
+  - [[#theme][THEME]]
+  - [[#options][OPTIONS]]
+  - [[#display-line-numbers-and-truncated-lines][DISPLAY LINE NUMBERS AND TRUNCATED LINES]]
+  - [[#mode-line][MODE-LINE]]
+  - [[#transparency][TRANSPARENCY]]
+  - [[#dashboard][DASHBOARD]]
+  - [[#highlight-line][HIGHLIGHT LINE]]
+  - [[#uniline][UNILINE]]
+  - [[#posframe][POSFRAME]]
 - [[#org-mode][ORG MODE]]
-  - [[#agenda-files][Agenda Files]]
-  - [[#enhancements][Enhancements]]
-  - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#org-depend][org-depend]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-  - [[#disable-line-numbers][Disable line numbers]]
-  - [[#org-keybindings][Org keybindings]]
-  - [[#org-appear][org-appear]]
-  - [[#flyspell][flyspell]]
-  - [[#org-modern][Org-modern]]
-- [[#naviagation][Naviagation]]
+  - [[#agenda-files][AGENDA FILES]]
+  - [[#enhancements][ENHANCEMENTS]]
+  - [[#enabling-table-of-contents][ENABLING TABLE OF CONTENTS]]
+  - [[#org-depend][ORG-DEPEND]]
+  - [[#enabling-org-bullets][ENABLING ORG BULLETS]]
+  - [[#source-code-block-tag-expansion][SOURCE CODE BLOCK TAG EXPANSION]]
+  - [[#disable-line-numbers-in-org-mode][DISABLE LINE NUMBERS IN ORG-MODE]]
+  - [[#org-keybindings][ORG KEYBINDINGS]]
+  - [[#org-appear][ORG-APPEAR]]
+  - [[#flyspell][FLYSPELL]]
+  - [[#org-modern][ORG-MODERN]]
+- [[#naviagation][NAVIAGATION]]
 - [[#projectile][PROJECTILE]]
-- [[#git][Git]]
+- [[#git][GIT]]
 - [[#dired][DIRED]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#which-key][WHICH-KEY]]
 - [[#theme-1][THEME]]
-  - [[#spacious-padding][spacious-padding]]
+  - [[#spacious-padding][SPACIOUS-PADDING]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
-  - [[#eshell][Eshell]]
+  - [[#eshell][ESHELL]]
 - [[#behaviour-tweaks][BEHAVIOUR TWEAKS]]
-  - [[#pairs][pairs]]
-  - [[#rainbow-mode][Rainbow mode]]
-  - [[#junk-files][junk files]]
-  - [[#set-zathura-as-the-default-pdf-viewer][Set zathura as the default PDF viewer]]
-  - [[#copy-minibuffer][Copy minibuffer]]
-  - [[#smooth-scrolling][Smooth scrolling]]
-- [[#commenting][Commenting]]
+  - [[#pairs][PAIRS]]
+  - [[#rainbow-mode][RAINBOW MODE]]
+  - [[#junk-files][JUNK FILES]]
+  - [[#open-apps][OPEN APPS]]
+  - [[#copy-minibuffer][COPY MINIBUFFER]]
+  - [[#smooth-scrolling][SMOOTH SCROLLING]]
+  - [[#perspective-workspaces][PERSPECTIVE WORKSPACES]]
 - [[#programming][PROGRAMMING]]
-  - [[#flycheck][Flycheck]]
-  - [[#company][Company]]
-  - [[#crafted-emacs][Crafted emacs]]
-  - [[#lsp][Lsp]]
-  - [[#formating][Formating]]
-  - [[#racket][Racket]]
-  - [[#agressive-indent][Agressive indent]]
-  - [[#surround][Surround]]
-  - [[#yuck][yuck]]
-  - [[#c-programming][C Programming]]
-  - [[#geiser][geiser]]
-  - [[#folding][Folding]]
-  - [[#indent-guide][Indent guide]]
-  - [[#syntax-highlihgting][Syntax highlihgting]]
-  - [[#discord-recover-wife][discord recover wife]]
+  - [[#flycheck][FLYCHECK]]
+  - [[#company][COMPANY]]
+  - [[#crafted-emacs][CRAFTED EMACS]]
+  - [[#lsp][LSP]]
+  - [[#formating][FORMATING]]
+  - [[#racket][RACKET]]
+  - [[#agressive-indent][AGRESSIVE INDENT]]
+  - [[#surround][SURROUND]]
+  - [[#yuck][YUCK]]
+  - [[#c-programming][C-PROGRAMMING]]
+  - [[#geiser][GEISER]]
+  - [[#folding][FOLDING]]
+  - [[#indent-guide][INDENT GUIDE]]
+  - [[#devdocs][DEVDOCS]]
+  - [[#syntax-highlihgting][SYNTAX HIGHLIHGTING]]
+  - [[#discord-recover-wife][DISCORD RECOVER WIFE]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
-** Elpaca Package Manager
+** ELPACA PACKAGE MANAGER
 #+begin_src emacs-lisp
 (defvar elpaca-installer-version 0.11)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -147,7 +148,7 @@
 (elpaca-use-package-mode) ;; enables :ensure in use-package to work with elpaca
 #+end_src
 
-** Load Evil Mode
+** LOAD EVIL MODE
 #+begin_src emacs-lisp
 ;; Expands to: (elpaca evil (use-package evil :demand t))
 ;; Evil mode
@@ -160,6 +161,7 @@
   (setq evil-split-window-below t)
   :config
   (evil-mode)
+  (setq evil-kill-on-visual-paste nil)
 ;; ;; Evil-states per major mode
 ;;   (setq evil-default-state 'emacs)
 ;;   (setq evil-normal-state-modes '(fundamental-mode
@@ -204,13 +206,10 @@
   (with-eval-after-load 'evil
     (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
 
-;; Evil extras
 (use-package evil-collection
-  :after company
   :after evil
+  :ensure t
   :config
-  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
-  (setq evil-collection-company-complete-in-complete-state nil)
   (evil-collection-init))
 #+end_src
 
@@ -261,7 +260,7 @@
 #+end_src
 
 
-* Keybindings
+* KEYBINDINGS
 #+begin_src emacs-lisp
 (use-package general
   :config
@@ -278,7 +277,7 @@
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive) (find-file "~/.emacs.d/config.org")) :wk "Edit emacs config")
     "f r" '(counsel-recentf :wk "Find recent files")
-    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "Roadmap")
+    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "books")
     "TAB TAB" '(comment-line :wk "Comment lines"))
 
   (yousef/leader-keys
@@ -468,7 +467,7 @@ This is just an example of how to create a simple function in Emacs.  Use this f
 
 * FONTS
 Defining the various fonts that Emacs will use.
-** Setting the Font Face
+** SETTING THE FONT FACE
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
                     :font "Iosevka"
@@ -500,7 +499,7 @@ Defining the various fonts that Emacs will use.
 (set-fontset-font t 'arabic "Noto Sans Arabic UI")
 #+end_src
 
-** Ligatures
+** LIGATURES
 #+begin_src emacs-lisp
 (use-package ligature
   :ensure t
@@ -522,7 +521,7 @@ Defining the various fonts that Emacs will use.
 
 #+end_src
 
-** Zooming In/Out
+** ZOOMING IN/OUT
 You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTRL plus the mouse wheel for zooming in/out.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-=") 'text-scale-increase)
@@ -533,17 +532,16 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
 * GRAPHICAL USER INTERFACE TWEAKS
 Let's make GNU Emacs look a little better.
-** Theme
+** THEME
 #+begin_src emacs-lisp
 
 (use-package gruvbox-theme
   :config
-  (custom-set-variables
-   '(custom-enabled-themes '(gruvbox-dark-hard)))
-(set-face-background 'default "#000000")
+  (load-theme 'gruvbox-dark-hard t)
+  (set-face-background 'default "#000000")
+  (set-face-background 'mode-line-inactive "#000000")
   (custom-set-faces
    '(internal-border ((t (:background "#000000"))))
-   '(highlight-indent-guides-character-face ((t (:foreground "dim gray"))))
    '(org-block ((t (:background "#000000" :extend t))))
    '(org-block-begin-line ((t (:background "#000000" :extend t))))
    '(org-block-end-line ((t (:background "#000000" :extend t))))
@@ -554,7 +552,7 @@ Let's make GNU Emacs look a little better.
    '(org-level-5 ((t (:inherit outline-5 :height 1.2))))))
 
 #+end_src
-** options
+** OPTIONS
 #+begin_src emacs-lisp
 (setq inhibit-startup-message t)
 (menu-bar-mode 0)
@@ -565,7 +563,7 @@ Let's make GNU Emacs look a little better.
 (setq-default standard-indent 4)     ;; Set standard indentation to 4 spaces
 #+end_src
 
-** Display Line Numbers and Truncated Lines
+** DISPLAY LINE NUMBERS AND TRUNCATED LINES
 #+begin_src emacs-lisp
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative
@@ -573,7 +571,7 @@ Let's make GNU Emacs look a little better.
 (global-visual-line-mode t)
 #+end_src
 
-** Mode-line
+** MODE-LINE
 #+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
@@ -591,13 +589,13 @@ Let's make GNU Emacs look a little better.
   :init (nyan-mode))
 #+end_src
 
-** Transparency
+** TRANSPARENCY
 #+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 100) ; For current frame
 (add-to-list 'default-frame-alist '(alpha-background . 100)) ; For all new frames henceforth
 #+end_src
 
-** Dashboard
+** DASHBOARD
 #+begin_src emacs-lisp
 (use-package dashboard
   :ensure t 
@@ -621,17 +619,17 @@ Let's make GNU Emacs look a little better.
   (dashboard-setup-startup-hook))
 #+end_src
 
-** Highlight line
+** HIGHLIGHT LINE
 #+begin_src emacs-lisp
 (global-hl-line-mode)
 #+end_src>
 
-** uniline
+** UNILINE
 #+begin_src emacs-lisp
 (use-package uniline)
 #+end_src
 
-** posframe
+** POSFRAME
 #+begin_src emacs-lisp
 (use-package posframe
   :ensure t)
@@ -647,7 +645,7 @@ Let's make GNU Emacs look a little better.
 #+end_src
 
 * ORG MODE
-** Agenda Files
+** AGENDA FILES
 #+begin_src emacs-lisp
 (setq org-agenda-files '("/home/yousef/org/diary.org" 
                          "/home/yousef/org/my_todo_list.org" 
@@ -655,7 +653,7 @@ Let's make GNU Emacs look a little better.
                          "/home/yousef/org/25_todo_list.org"))
 #+end_src
 
-** Enhancements
+** ENHANCEMENTS
 #+begin_src emacs-lisp
 (setq org-ellipsis " ▾")
 (setq org-hide-emphasis-markers t)
@@ -663,21 +661,21 @@ Let's make GNU Emacs look a little better.
 (setq org-startup-indented t)
 #+end_src
 
-** Enabling Table of Contents
+** ENABLING TABLE OF CONTENTS
 #+begin_src emacs-lisp
 (use-package toc-org
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
 
-** org-depend
+** ORG-DEPEND
 #+begin_src emacs-lisp
 ;; (use-package org-depend
 ;;   :config
 ;;   (org-depend-initialize))
 #+end_src
 
-** Enabling Org Bullets
+** ENABLING ORG BULLETS
 Org-bullets gives us attractive bullets rather than asterisks.
 #+begin_src emacs-lisp
 ;;(add-hook 'org-mode-hook 'org-indent-mode)
@@ -685,9 +683,8 @@ Org-bullets gives us attractive bullets rather than asterisks.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-** Source Code Block Tag Expansion
+** SOURCE CODE BLOCK TAG EXPANSION
 Org-tempo is not a separate package but a module within org that can be enabled.  Org-tempo allows for '<s' followed by TAB to expand to a begin_src tag.  Other expansions available include:
-
 
 | Typing the below + TAB | Expands to ...                           |
 |------------------------+------------------------------------------|
@@ -706,31 +703,31 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (require 'org-tempo)
 #+end_src
 
-** Disable line numbers
+** DISABLE LINE NUMBERS IN ORG-MODE
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
 #+end_src
 
-** Org keybindings
+** ORG KEYBINDINGS
 #+begin_src emacs-lisp
 (with-eval-after-load 'evil
   (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle) 
   (evil-define-key 'insert org-mode-map (kbd "TAB") #'org-cycle))
 #+end_src
 
-** org-appear
+** ORG-APPEAR
 #+begin_src emacs-lisp
 (use-package org-appear
   :config
     (add-hook 'org-mode-hook 'org-appear-mode))
 #+end_src
 
-** flyspell
-#+begin_src 
+** FLYSPELL
+#+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'flyspell-mode)
 #+end_src
 
-** Org-modern
+** ORG-MODERN
 #+begin_src emacs-lisp
 (use-package org-modern
   :ensure t
@@ -745,7 +742,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 #+end_src
 
-* Naviagation
+* NAVIAGATION
 #+begin_src emacs-lisp
 (use-package avy
   :bind (("C-;" . avy-goto-char-timer))  ; Example: Jump to char with timer
@@ -762,10 +759,11 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+begin_src emacs-lisp
 (use-package projectile
   :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode 1))
 #+end_src
 
-* Git
+* GIT
 #+begin_src emacs-lisp
 (use-package transient)
 (use-package magit
@@ -820,26 +818,18 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+end_src
 
 * THEME
-** spacious-padding
+** SPACIOUS-PADDING
 #+begin_src emacs-lisp
 (use-package spacious-padding
   :after gruvbox-theme
   :config (spacious-padding-mode 1))
 (setq spacious-padding-widths
-      '( :internal-border-width 30
+      '( :internal-border-width 10
          :header-line-width 2
-         :mode-line-width 6
-         :tab-width 6
-         :right-divider-width 30
-         :scroll-bar-width 15
+         :mode-line-width 2
+         :tab-width 1
+         :right-divider-width 5
          :fringe-width 20))
-(let ((bg (face-background 'default)))
-  (custom-set-faces
-   `(internal-border ((t (:background ,bg))))
-   `(fringe ((t (:background ,bg))))))
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(internal-border ((t (:background ,bg :foreground ,bg))))))
 
 ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
 ;; is very flexible and provides several examples.
@@ -851,7 +841,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+end_src
 
 * SHELLS AND TERMINALS
-** Eshell
+** ESHELL
 #+begin_src emacs-lisp
 (use-package eshell-syntax-highlighting
   :after esh-mode
@@ -889,7 +879,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+end_src
 
 * BEHAVIOUR TWEAKS
-** pairs
+** PAIRS
 #+begin_src emacs-lisp
 (electric-pair-mode)
 
@@ -905,28 +895,32 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (message "Rainbow delimiters loaded in programming buffers"))
 #+end_src
 
-** Rainbow mode
+** RAINBOW MODE
 #+begin_src emacs-lisp
 (use-package rainbow-mode)
 #+end_src
 
-** junk files
+** JUNK FILES
 #+begin_src emacs-lisp
 (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
 (setq auto-save-file-name-transforms '((".*" "~/.local/share/Trash/files/" t)))
 #+end_src
 
-** Set zathura as the default PDF viewer
+** OPEN APPS
 #+begin_src emacs-lisp
 (setq org-file-apps
       '((auto-mode . emacs)
         ("\\.pdf\\'" . "zathura %s")
         ("\\.png\\'" . "sxiv %s")
         ("\\.jpeg\\'" . "sxiv %s")
-        ("\\.jpg\\'" . "sxiv %s")))
+        ("\\.webp\\'" . "sxiv %s")
+        ("\\.jpg\\'" . "sxiv %s")
+        ("\\.mp4\\'" . "mpv %s")
+        ("\\.mkv\\'" . "mpv %s")
+        ))
 #+end_src
 
-** Copy minibuffer
+** COPY MINIBUFFER
 #+begin_src emacs-lisp
 (with-eval-after-load 'ivy
   (define-key ivy-minibuffer-map (kbd "C-c")
@@ -935,7 +929,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
                 (ivy-copy-file-path (ivy-state-current ivy-last)))))
 #+end_src
 
-** Smooth scrolling
+** SMOOTH SCROLLING
 #+begin_src emacs-lisp
 (setq scroll-step 1
       scroll-margin 5
@@ -944,13 +938,20 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (pixel-scroll-precision-mode t)
 #+end_src
 
-* Commenting
+** PERSPECTIVE WORKSPACES
 #+begin_src emacs-lisp
-
+;; (use-package perspective
+;;   :bind
+;;   ("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
+;;   :custom
+;;   (persp-mode-prefix-key (kbd "C-c w"))  ; pick your own prefix key here
+;;   :init
+;;   (persp-mode))
+;; i think this is bullshit honestly
 #+end_src
 
 * PROGRAMMING
-** Flycheck
+** FLYCHECK
 #+begin_src emacs-lisp
 (use-package flycheck
   :ensure t
@@ -959,7 +960,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   :init (global-flycheck-mode))
 #+end_src
 
-** Company
+** COMPANY
 #+begin_src emacs-lisp
 (use-package company
   :ensure t
@@ -990,17 +991,19 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 #+end_src
 
-** Crafted emacs
+** CRAFTED EMACS
 #+begin_src emacs-lisp
 ;;(load "~/.emacs.d/crafted-emacs/modules/crafted-init-config")
 #+end_src
 
-** Lsp
+** LSP
 #+begin_src emacs-lisp
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
+(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (racket-mode . lsp)
          (python-mode . lsp)
@@ -1014,29 +1017,33 @@ Org-tempo is not a separate package but a module within org that can be enabled.
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 ;; optionally
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :hook (lsp-mode . lsp-ui-mode))
+
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 #+end_src
 
-** Formating
+** FORMATING
 #+begin_src emacs-lisp
 (use-package clang-format
   :config
   (setq clang-format-executable "/usr/bin/clang-format"))
 #+end_src
 
-** Racket 
+** RACKET 
 #+begin_src emacs-lisp
 (use-package racket-mode)
 #+end_src
 
-** Agressive indent
+** AGRESSIVE INDENT
 #+begin_src emacs-lisp
 (use-package aggressive-indent
   :init (aggressive-indent-mode))
 #+end_src
 
-** Surround
+** SURROUND
 #+begin_src emacs-lisp
 (use-package evil-surround
   :ensure t
@@ -1077,12 +1084,12 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (global-evil-surround-mode 1))
 #+end_src
 
-** yuck
+** YUCK
 #+begin_src emacs-lisp
 (use-package yuck-mode)
 #+end_src
 
-** C Programming
+** C-PROGRAMMING
 #+begin_src emacs-lisp
 ;; Set C-style indentation to 4 spaces
 (setq c-default-style "linux")  ; Uses 8 spaces by default, but we'll override
@@ -1103,9 +1110,10 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (setq-local c-ts-mode-indent-offset 4))    ;; actual indent width
 
 (add-hook 'c++-ts-mode-hook #'my/c++-ts-mode-setup)
+(add-hook 'c-ts-mode-hook #'my/c++-ts-mode-setup)
 #+end_src
 
-** geiser
+** GEISER
 #+begin_src emacs-lisp
 (use-package geiser
   :ensure t
@@ -1116,7 +1124,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   :ensure t)
 #+end_src
 
-** Folding 
+** FOLDING 
 #+begin_src emacs-lisp
 (defun toggle-fold ()
   (interactive)
@@ -1127,7 +1135,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (define-key evil-normal-state-map (kbd "zc") 'toggle-fold))
 #+end_src
 
-** Indent guide
+** INDENT GUIDE
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
@@ -1139,7 +1147,19 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 #+end_src
 
-** Syntax highlihgting
+** DEVDOCS
+#+begin_src emacs-lisp
+(use-package devdocs
+  :ensure t
+  :bind (("C-c d" . devdocs-lookup))   ;; global lookup
+  :config
+  (devdocs-install "c")                ;; grabs the C reference (offline)
+  (devdocs-install "python~3.13")                ;; grabs the C reference (offline)
+  ;; optional extra sets:
+)
+#+end_src
+
+** SYNTAX HIGHLIHGTING
 #+begin_src emacs-lisp
 ;;Enable Tree-sitter
 (use-package tree-sitter
@@ -1160,7 +1180,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-ts-mode))
 #+end_src
 
-** discord recover wife
+** DISCORD RECOVER WIFE
 script for wife without possibly sensitive information [[/home/yousef/.emacs.d/scripts/recover_this_wife_censored.py][here]]
 script for wife without possibly sensitive information [[/home/yousef/.emacs.d/scripts/get_job_censored.py][here]]
 

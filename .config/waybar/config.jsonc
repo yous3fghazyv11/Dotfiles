@@ -15,13 +15,12 @@
         "custom/arch",
         "hyprland/workspaces",
         "custom/spacer-right",
-        "custom/spotify",
-        "custom/seperator",
         "cava",
     ],
     "modules-right": [
         "custom/pulseaudiotext",
         "pulseaudio",
+        "custom/pulseaudio2",
         "custom/networktext",
         "network",
         "custom/memorytext",
@@ -35,10 +34,10 @@
     // Modules configuration
     "custom/languagetext": {
     "format" : "󰌌",
-},
+    },
     "hyprland/language": {
         "format": "{short}"
-},
+    },
      "hyprland/workspaces": {
          "disable-scroll": true,
          "all-outputs": true,
@@ -101,12 +100,15 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}%",
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "y",
+            "hands-free": "",
             "headset": "",
             "phone": "",
             "portable": "",
@@ -117,14 +119,6 @@
     },
     "custom/arch": {
     "format": "󰣇 ",
-    },
-    "custom/spotify": {
-        "exec": "/usr/bin/python3 ~/.config/waybar/custom/mediaplayer.py --player spotify",
-        "format": "{}  ",
-        "return-type": "json",
-        "on-click": "playerctl --player=spotify play-pause",
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous"
     },
     "cava": {
         "cava_config": "/home/yousef/.config/cava/config",
@@ -145,11 +139,6 @@
         "input_delay": 0,
         "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
         "on-click": "eww open music --toggle",
-    },
-    "custom/spacer-right": {
-        "type": "custom/text",
-        "format": "   ", // Same as spacer-left
-        "tooltip": false
     },
     "custom/seperator": {
         "type": "custom/text",

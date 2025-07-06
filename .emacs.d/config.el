@@ -75,6 +75,7 @@
   (setq evil-split-window-below t)
   :config
   (evil-mode)
+  (setq evil-kill-on-visual-paste nil)
 ;; ;; Evil-states per major mode
 ;;   (setq evil-default-state 'emacs)
 ;;   (setq evil-normal-state-modes '(fundamental-mode
@@ -86,7 +87,7 @@
 ;;                                   dired-mode
 ;;                                   dashboard-mode))
   ;; Minor mode evil states
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+;;  (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
   ;; Per mode cursors
   (setq evil-insert-state-cursor '(box "green"))
@@ -119,33 +120,11 @@
   (with-eval-after-load 'evil
     (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)))
 
-;; Evil extras
 (use-package evil-collection
-  :after company
   :after evil
+  :ensure t
   :config
-  ;; (setq evil-collection-mode-list '(company dashboard dired ibuffer))
-  (setq evil-collection-company-complete-in-complete-state nil)
   (evil-collection-init))
-
-;; List of modes where evil-mode should be disabled
-(defvar my/evil-excluded-modes
-  '(dired-mode
-    org-agenda-mode
-    calendar-mode
-    ibuffer-mode
-    help-mode
-    comint-mode
-    messages-buffer-mode)
-    ;; special-mode)
-  "Major modes in which evil-mode should be disabled.")
-
-(defun my/conditionally-disable-evil-mode ()
-  "Disable evil-mode in buffers where it's not appropriate."
-  (when (apply #'derived-mode-p my/evil-excluded-modes)
-    (evil-local-mode -1)))
-
-(add-hook 'evil-mode-hook #'my/conditionally-disable-evil-mode)
 
 (use-package counsel
   :after ivy
@@ -205,7 +184,7 @@
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive) (find-file "~/.emacs.d/config.org")) :wk "Edit emacs config")
     "f r" '(counsel-recentf :wk "Find recent files")
-    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "Roadmap")
+    "f m p" '((lambda () (interactive) (find-file "~/org/study.org")) :wk "books")
     "TAB TAB" '(comment-line :wk "Comment lines"))
 
   (yousef/leader-keys
@@ -428,12 +407,11 @@ one, an error is signaled."
 
 (use-package gruvbox-theme
   :config
-  (custom-set-variables
-   '(custom-enabled-themes '(gruvbox-dark-hard)))
-(set-face-background 'default "#000000")
+  (load-theme 'gruvbox-dark-hard t)
+  (set-face-background 'default "#000000")
+  (set-face-background 'mode-line-inactive "#000000")
   (custom-set-faces
    '(internal-border ((t (:background "#000000"))))
-   '(highlight-indent-guides-character-face ((t (:foreground "dim gray"))))
    '(org-block ((t (:background "#000000" :extend t))))
    '(org-block-begin-line ((t (:background "#000000" :extend t))))
    '(org-block-end-line ((t (:background "#000000" :extend t))))
@@ -543,6 +521,8 @@ one, an error is signaled."
   :config
     (add-hook 'org-mode-hook 'org-appear-mode))
 
+(add-hook 'org-mode-hook 'flyspell-mode)
+
 (use-package org-modern
   :ensure t
   :hook (org-mode . org-modern-mode)
@@ -566,6 +546,7 @@ one, an error is signaled."
 
 (use-package projectile
   :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode 1))
 
 (use-package transient)
@@ -611,20 +592,12 @@ one, an error is signaled."
   :after gruvbox-theme
   :config (spacious-padding-mode 1))
 (setq spacious-padding-widths
-      '( :internal-border-width 30
+      '( :internal-border-width 10
          :header-line-width 2
-         :mode-line-width 6
-         :tab-width 6
-         :right-divider-width 30
-         :scroll-bar-width 15
+         :mode-line-width 2
+         :tab-width 1
+         :right-divider-width 5
          :fringe-width 20))
-(let ((bg (face-background 'default)))
-  (custom-set-faces
-   `(internal-border ((t (:background ,bg))))
-   `(fringe ((t (:background ,bg))))))
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(internal-border ((t (:background ,bg :foreground ,bg))))))
 
 ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
 ;; is very flexible and provides several examples.
@@ -691,7 +664,11 @@ one, an error is signaled."
         ("\\.pdf\\'" . "zathura %s")
         ("\\.png\\'" . "sxiv %s")
         ("\\.jpeg\\'" . "sxiv %s")
-        ("\\.jpg\\'" . "sxiv %s")))
+        ("\\.webp\\'" . "sxiv %s")
+        ("\\.jpg\\'" . "sxiv %s")
+        ("\\.mp4\\'" . "mpv %s")
+        ("\\.mkv\\'" . "mpv %s")
+        ))
 
 (with-eval-after-load 'ivy
   (define-key ivy-minibuffer-map (kbd "C-c")
@@ -705,7 +682,14 @@ one, an error is signaled."
       scroll-preserve-screen-position t)
 (pixel-scroll-precision-mode t)
 
-
+;; (use-package perspective
+;;   :bind
+;;   ("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
+;;   :custom
+;;   (persp-mode-prefix-key (kbd "C-c w"))  ; pick your own prefix key here
+;;   :init
+;;   (persp-mode))
+;; i think this is bullshit honestly
 
 (use-package flycheck
   :ensure t
@@ -746,6 +730,8 @@ one, an error is signaled."
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
+(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (racket-mode . lsp)
          (python-mode . lsp)
@@ -759,7 +745,11 @@ one, an error is signaled."
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 ;; optionally
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :hook (lsp-mode . lsp-ui-mode))
+
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 
 (use-package clang-format
@@ -830,6 +820,7 @@ one, an error is signaled."
   (setq-local c-ts-mode-indent-offset 4))    ;; actual indent width
 
 (add-hook 'c++-ts-mode-hook #'my/c++-ts-mode-setup)
+(add-hook 'c-ts-mode-hook #'my/c++-ts-mode-setup)
 
 (use-package geiser
   :ensure t
@@ -854,6 +845,15 @@ one, an error is signaled."
   (setq highlight-indent-guides-responsive 'top) ; Highlight current scope
   (setq highlight-indent-guides-auto-enabled nil)
   (setq highlight-indent-guides-method 'character))
+
+(use-package devdocs
+  :ensure t
+  :bind (("C-c d" . devdocs-lookup))   ;; global lookup
+  :config
+  (devdocs-install "c")                ;; grabs the C reference (offline)
+  (devdocs-install "python~3.13")                ;; grabs the C reference (offline)
+  ;; optional extra sets:
+)
 
 ;;Enable Tree-sitter
 (use-package tree-sitter

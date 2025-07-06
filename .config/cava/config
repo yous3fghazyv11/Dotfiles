@@ -1,17 +1,12 @@
 [input]
-
 method = pulse
 source = auto
 
 [output]
-data_format = ascii
-ascii_max_range = 9
-noise_reduction = 0.77
-bars = 20
-bar_spacing = 2
+method = ncurses
 
 [color]
-
-[smoothing]
-
-[eq]
+gradient_count = 3
+gradient_color_1 = '#2864FF'
+gradient_color_2 = '#C620FF'
+gradient_color_3 = '#FF3C00'

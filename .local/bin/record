@@ -9,8 +9,8 @@ fi
 notify-send --expire-time 1500 "🎬 Recording started"
 
 dateTime=$(date +%m-%d-%Y-%H:%M:%S)
-# --audio=combined_out.monitor \
+#--audio=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor\
 wf-recorder \
     --bframes max_b_frames \
-    --audio=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor\
+    --audio=combined_out.monitor \
     -f "$HOME/Videos/$dateTime.mp4" &
