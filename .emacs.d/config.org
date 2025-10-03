@@ -78,6 +78,7 @@
   - [[#web-shit][WEB SHIT]]
   - [[#discord-recover-wife][DISCORD RECOVER WIFE]]
 - [[#config-files][CONFIG FILES]]
+- [[#dotfiles-control][DOTFILES CONTROL]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** ELPACA PACKAGE MANAGER
@@ -1245,3 +1246,8 @@ script for wife without possibly sensitive information [[/home/yousef/.emacs.d/s
 (use-package kdl-mode)
 #+end_src
 
+
+* DOTFILES CONTROL
+#+begin_src emacs-lisp
+(setq vc-follow-symlinks t)
+#+end_src
