@@ -487,6 +487,7 @@ environment {
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 spawn-at-startup "mako"
+spawn-at-startup "hyprpaper"
 spawn-sh-at-startup "emacs --daemon"
 
 layer-rule {
