@@ -1,0 +1,144 @@
+{
+    "layer": "top", 
+    "reload_style_on_change": true,
+    "exclusive": true,
+    "passthrough": false,
+    "modules-left": [
+        "custom/clocktext",
+        "clock",
+        "custom/spacer-right",
+        "custom/cavatext",
+        "cava",
+    ],
+    "modules-center": [
+        "custom/arch",
+        "niri/window",
+    ],
+    "modules-right": [
+        "custom/pulseaudiotext",
+        "pulseaudio",
+        "custom/pulseaudio2",
+        "custom/networktext",
+        "network",
+        "custom/memorytext",
+        "memory",
+        "custom/languagetext",
+        "niri/language",
+    ],
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+    "niri/window": {
+        "format": "{}",
+        "rewrite": {
+            "(.*) - Mozilla Firefox": "🌎 $1",
+            "(.*) - zsh": "> [$1]"
+        },
+        "max-length": 40,
+    },
+    "custom/languagetext": {
+    "format" : "󰌌",
+    },
+    "niri/language": {
+    "format": "{}",
+    "format-ar": "AR",
+    "format-en": "US",
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "custom/clocktext": {
+    "format" : "󰥔",
+},
+    "clock": {
+        "format": "{:%I:%M%p}",
+        "icon": "/home/yousef/protein-svgrepo-com.svg",
+        "on-click": "eww open date --toggle",
+        "tooltip": false
+    },
+    "custom/memorytext": {
+    "format" :""
+},
+    "memory": {
+        "format": "{}%"
+    },
+    "custom/networktext": {
+    "format" : "",
+},
+    "network": {
+        "format-ethernet": "connected",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "custom/pulseaudiotext": {
+        "format" : "",
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/arch": {
+    "format": "󰣇 ",
+    },
+
+    "custom/cavatext": {
+    "format" : "",
+    },
+    "cava": {
+        "cava_config": "/home/yousef/.config/cava/config",
+        "framerate": 30,
+        "autosens": 1,
+        "sensitivity": 2,
+        "bars": 40,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pulse",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 0,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "on-click": "eww open music --toggle",
+    },
+    "custom/seperator": {
+        "type": "custom/text",
+        "format": ":", // Same as spacer-left
+        "tooltip": false
+    },
+    "custom/power": {
+        "format" : "⏻ ",
+		"tooltip": false,
+        "on-click": "rofi -show power-menu -show-icons -modi power-menu:rofi-power-menu"
+    },
+}

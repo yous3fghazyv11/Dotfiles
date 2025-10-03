@@ -1,0 +1,30 @@
+#!/usr/bin/sh
+xset r rate 250 30
+
+setxkbmap -option ctrl:swapcaps
+
+xmodmap -e "clear Mod1"
+xmodmap -e "clear Mod4"
+
+# Swap keysyms: RAlt (108) ↔ RSuper (134)
+xmodmap -e "keycode 108 = Super_R"
+xmodmap -e "keycode 134 = Alt_R Meta_R"
+
+# Reassign modifiers
+xmodmap -e "add Mod1 = Alt_L Alt_R"
+xmodmap -e "add Mod4 = Super_L Super_R"
+
+sxhkd &
+unclutter -idle 5 -root &
+dunst &
+
+dwmblocks &
+
+sh /home/yousef/src/dwmblocks/watcher.sh &
+
+/usr/lib/xdg-desktop-portal &
+/usr/lib/xdg-desktop-portal-gtk &
+
+clipmenud &
+
+picom &

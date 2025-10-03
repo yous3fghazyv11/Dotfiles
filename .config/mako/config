@@ -1,0 +1,23 @@
+# ~/.config/mako/config
+background-color=#000000
+text-color=#ebdbb2
+border-color=#d79921
+border-size=2
+default-timeout=5000
+font=JetBrains Mono 16
+max-history=1000
+border-radius=4
+max-icon-size=80
+padding=16
+width=450
+height=150
+outer-margin=30,30
+layer=overlay
+# ignore-timeout=3
+
+[urgency=high]
+default-timeout=10000
+border-color=#d79921
+
+[mode=do-not-disturb]
+invisible=1
