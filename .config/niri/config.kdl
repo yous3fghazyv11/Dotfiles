@@ -1,3 +1,11 @@
+workspace "terminal"
+workspace "emacs"
+workspace "browser"
+workspace "chat"
+workspace "work"
+workspace "spotify"
+workspace "misc"
+
 input {
     keyboard {
         xkb {
@@ -24,8 +32,8 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 8
 
+    // center-focused-column "never"
     center-focused-column "always"
-    // center-focused-column "always"
 
     preset-column-widths {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
@@ -43,7 +51,7 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 1.0; }
+    default-column-width { proportion 0.9; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -192,7 +200,7 @@ binds {
     Mod+W { focus-workspace-up; }
     Mod+D { focus-column-right; }
     Mod+A { focus-column-left; }
-    Mod+F12 { spawn-sh "/home/yousef/.local/bin/record"; }
+    Mod+F12 { spawn-sh "$HOME/.local/bin/record"; }
     Mod+E { spawn-sh "emacsclient -c -a 'emacs'"; }
     Pause { spawn-sh "playerctl --player=spotify play-pause"; }
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -436,7 +444,7 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
-    Mod+Print { spawn-sh "flameshot gui --clipboard"; }
+    Mod+Print { spawn-sh "flameshot gui"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
@@ -488,6 +496,7 @@ environment {
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 spawn-at-startup "mako"
 spawn-at-startup "hyprpaper"
+spawn-sh-at-startup "waybar --config ~/.config/waybar/bar2.jsonc --style ~/.config/waybar/style2.css"
 spawn-sh-at-startup "emacs --daemon"
 
 layer-rule {

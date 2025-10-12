@@ -4,8 +4,6 @@
     "exclusive": true,
     "passthrough": false,
     "modules-left": [
-        "custom/clocktext",
-        "clock",
         "custom/spacer-right",
         "custom/cavatext",
         "cava",
@@ -49,21 +47,12 @@
     "format-en": "US",
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 59,
         "spacing": 10,
         // "icons": {
         //   "blueman": "bluetooth",
         //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
         // }
-    },
-    "custom/clocktext": {
-    "format" : "󰥔",
-},
-    "clock": {
-        "format": "{:%I:%M%p}",
-        "icon": "/home/yousef/protein-svgrepo-com.svg",
-        "on-click": "eww open date --toggle",
-        "tooltip": false
     },
     "custom/memorytext": {
     "format" :""

@@ -1,0 +1,50 @@
+{
+    "layer": "top", 
+    "reload_style_on_change": true,
+    "exclusive": true,
+    "passthrough": false,
+    "position": "bottom",
+    "modules-left": [
+        "custom/clocktext",
+        "clock",
+    ],
+    "modules-center": [
+        "custom/workspaces-text",
+        "niri/workspaces",
+    ],
+    "modules-right": [
+        "tray",
+    ],
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "custom/workspaces-text": {
+    "format": "󰹑 ",
+    },
+    "custom/seperator": {
+        "type": "custom/text",
+        "format": ":", // Same as spacer-left
+        "tooltip": false
+    },
+    "custom/clocktext": {
+    "format" : "󰥔",
+    },
+    "clock": {
+        "format": "{:%I:%M%p}",
+        "icon": "/home/yousef/protein-svgrepo-com.svg",
+        "on-click": "eww open date --toggle",
+        "tooltip": false
+    },
+}

@@ -13,5 +13,5 @@ dateTime=$(date +%m-%d-%Y-%H:%M:%S)
     #--audio=combined_out.monitor \
 wf-recorder \
     --bframes max_b_frames \
-    --audio=combined_out.monitor \
+    --audio=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor\
     -f "$HOME/Videos/$dateTime.mp4" &
