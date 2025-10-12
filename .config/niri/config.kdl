@@ -1,10 +1,27 @@
-workspace "terminal"
-workspace "emacs"
-workspace "browser"
-workspace "chat"
-workspace "work"
-workspace "spotify"
-workspace "misc"
+workspace "ws1" {
+    open-on-output "DP-1"
+}
+workspace "ws2" {
+    open-on-output "DP-1"
+}
+workspace "ws3" {
+    open-on-output "DP-1"
+}
+workspace "ws4" {
+    open-on-output "DP-1"
+}
+workspace "ws5" {
+    open-on-output "DP-2"
+}
+workspace "ws6" {
+    open-on-output "DP-2"
+}
+workspace "ws7" {
+    open-on-output "DP-2"
+}
+workspace "ws8" {
+    open-on-output "DP-2"
+}
 
 input {
     keyboard {
@@ -20,6 +37,7 @@ input {
         numlock
     }
     // warp-mouse-to-focus
+    // focus-follows-mouse
 }
 
 layout {
@@ -39,9 +57,7 @@ layout {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
         // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
         // The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        proportion 0.33333
-        proportion 0.5
-        proportion 0.66667
+        proportion 0.95
 
         // Fixed sets the width in logical pixels exactly.
         // fixed 1920
@@ -51,7 +67,7 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 0.9; }
+    default-column-width { proportion 1.0; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -114,6 +130,37 @@ layout {
     // Left and right struts will cause the next window to the side to always be visible.
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
+}
+
+output "DP-1" {
+    // Uncomment this line to disable this output.
+    // off
+
+    // Resolution and, optionally, refresh rate of the output.
+    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
+    // If the refresh rate is omitted, niri will pick the highest refresh rate
+    // for the resolution.
+    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
+    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+    mode "1920x1200@59.950"
+
+    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+    scale 1
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+
+    // Position of the output in the global coordinate space.
+    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+    // The cursor can only move between directly adjacent outputs.
+    // Output scale and rotation has to be taken into account for positioning:
+    // outputs are sized in logical, or scaled, pixels.
+    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+    // so to put another output directly adjacent to it on the right, set its x to 1920.
+    // If the position is unset or results in an overlap, the output is instead placed
+    // automatically.
+    position x=1280 y=0
 }
 
 // Add lines like this to spawn processes at startup.
@@ -280,6 +327,7 @@ binds {
     Mod+Shift+Right { focus-monitor-right; }
     Mod+Shift+H     { focus-monitor-left; }
     Mod+Shift+L     { focus-monitor-right; }
+    Mod+Comma       { spawn-sh "focus_monitor.sh"; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
@@ -388,7 +436,7 @@ binds {
     Mod+BracketRight { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
-    Mod+Comma  { consume-window-into-column; }
+    // Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
     Mod+Period { expel-window-from-column; }
 
@@ -445,6 +493,7 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     Mod+Print { spawn-sh "flameshot gui"; }
+    Mod+Shift+Print { spawn-sh "grim - | tee /home/yousef/Pictures/Screenshots/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
@@ -515,6 +564,12 @@ window-rule {
 window-rule {
     geometry-corner-radius 3
     clip-to-geometry true
+}
+
+layer-rule {
+    match namespace="^notifications$"
+
+    block-out-from "screencast"
 }
 
 layer-rule {
