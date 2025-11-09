@@ -38,6 +38,19 @@ input {
     }
     // warp-mouse-to-focus
     // focus-follows-mouse
+    mouse {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-factor 1.0
+        // scroll-factor vertical=1.0 horizontal=-2.0
+        // scroll-method "no-scroll"
+        // scroll-button 273
+        // scroll-button-lock
+        // left-handed
+        // middle-emulation
+    }
 }
 
 layout {
@@ -48,10 +61,10 @@ layout {
     //     bottom 0
     // }
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 10
 
-    // center-focused-column "never"
-    center-focused-column "always"
+    center-focused-column "never"
+    // center-focused-column "always"
 
     preset-column-widths {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
@@ -84,6 +97,7 @@ layout {
 
     // You can change how the focus ring looks.
     focus-ring {
+        // off
         width 2
         inactive-color "#505050"
         active-gradient from="rgba(204, 36, 29, 1.0)" to="rgba(215, 153, 33, 1.0)" angle=60
@@ -149,7 +163,7 @@ output "DP-1" {
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
+    transform "90"
 
     // Position of the output in the global coordinate space.
     // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
@@ -161,6 +175,10 @@ output "DP-1" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=1280 y=0
+}
+
+output "DP-2" {
+    transform "normal"
 }
 
 // Add lines like this to spawn processes at startup.
@@ -178,7 +196,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -250,6 +268,7 @@ binds {
     Mod+F12 { spawn-sh "$HOME/.local/bin/record"; }
     Mod+E { spawn-sh "emacsclient -c -a 'emacs'"; }
     Pause { spawn-sh "playerctl --player=spotify play-pause"; }
+    Mod+Shift+C { spawn-sh "/home/yousef/.local/bin/ctz; pkill -SIGUSR2 waybar"; }
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
     // like wev.
@@ -325,18 +344,15 @@ binds {
     Mod+Shift+Down  { focus-monitor-down; }
     Mod+Shift+Up    { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+L     { focus-monitor-right; }
-    Mod+Comma       { spawn-sh "focus_monitor.sh"; }
+    Mod+Period      { focus-monitor-right; }
+    Mod+comma       { focus-monitor-left; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Shift+H     { move-column-to-monitor-left; }
+    Mod+Shift+L     { move-column-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
@@ -438,7 +454,6 @@ binds {
     // Consume one window from the right to the bottom of the focused column.
     // Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
@@ -562,14 +577,14 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 3
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 
 layer-rule {
     match namespace="^notifications$"
 
-    block-out-from "screencast"
+    block-out-from "screen-capture"
 }
 
 layer-rule {

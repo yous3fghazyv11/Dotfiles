@@ -16,15 +16,12 @@ window#waybar.hidden {
 }
 
 #waybar.top > box.horizontal {
-  margin-left: 5pt;
-  margin-right: 5pt;
-  margin-top: 3pt;
-  background:
-    linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) padding-box,
-    linear-gradient(45deg, rgba(204, 36, 29, 1.0), rgba(215, 153, 33, 1.0)) border-box;
-  border: 2px solid transparent;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
   padding: 5pt 2pt;
-  border-radius: 5px;
+  border-radius: 0px;
+  background: #000000;
 }
 
 window#waybar.termite {
@@ -57,14 +54,14 @@ button:hover {
 
 #window {
     border: 3px solid #458588;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     padding: 0px 15px;
     color: #ebdbb2;
     background: #000000;
 }
 #workspaces {
     border: 3px solid #458588;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
 }
 
 #workspaces button {
@@ -121,6 +118,16 @@ button:hover {
     color: #ffffff;
 }
 
+#custom-workspaces-text {
+    background: #458588;
+    padding: 0 0px 0 15px;
+    margin-left: 12px;
+    color: #ebdbb2;
+    border-radius: 3px 0px 0px 3px;
+    font-size: 25px;
+    /* background-color: rgba(43, 48, 59, 1.0); */
+}
+
 #window,
 #workspaces {
     margin: 0 0px;
@@ -129,7 +136,7 @@ button:hover {
 
 #custom-clocktext {
     background: #b8bb26;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
     margin-left: 5px;
@@ -137,7 +144,7 @@ button:hover {
 #clock {
     border: 3px solid #b8bb26;
     color: #ebdbb2;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     background: #000000;
 }
 
@@ -147,7 +154,7 @@ label:focus {
 
 #custom-memorytext {
     background: #b16286;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
     margin-left: 10px;
@@ -155,13 +162,13 @@ label:focus {
 #memory {
     border: 3px solid #b16286;
     color: #ebdbb2;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     background: #000000;
 }
 
 #custom-networktext {
     background: #8ec07c;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
     margin-left: 10px;
@@ -169,7 +176,7 @@ label:focus {
 #network {
     border: 3px solid #8ec07c;
     color: #ebdbb2;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     background: #000000;
 }
 
@@ -179,14 +186,15 @@ label:focus {
 
 #custom-pulseaudiotext {
     background: #fabd2d;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
+    margin-left: 10px;
 }
 #pulseaudio {
     border: 3px solid #fabd2d;
     color: #ebdbb2;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     background: #000000;
 }
 
@@ -214,7 +222,7 @@ label:focus {
 #custom-languagetext {
     background: #83a598;
     font-size: 20px;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
     margin-left: 10px;
@@ -222,7 +230,7 @@ label:focus {
 #language {
     border: 3px solid #83a598;
     color: #ebdbb2;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
     padding: 0 10px;
     margin-right: 5px;
     background: #000000;
@@ -233,7 +241,7 @@ label:focus {
     padding: 0 0px 0 15px;
     margin-left: 12px;
     color: #ebdbb2;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     font-size: 25px;
     /* background-color: rgba(43, 48, 59, 1.0); */
 }
@@ -250,7 +258,7 @@ label:focus {
 #custom-cavatext {
     background: #689d6a;
     font-size: 20px;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 6px 0px 0px 6px;
     padding: 0 10px;
     color: #000000;
     margin-left: 10px;
@@ -262,7 +270,7 @@ label:focus {
     border: 3px solid #689d6a;
     color: #689d6a;
     padding: 0 5px;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0px 6px 6px 0px;
 }
 
 #custom-seperator {

@@ -76,7 +76,6 @@
   - [[#syntax-highlihgting][SYNTAX HIGHLIHGTING]]
   - [[#golang][GOLANG]]
   - [[#web-shit][WEB SHIT]]
-  - [[#discord-recover-wife][DISCORD RECOVER WIFE]]
 - [[#config-files][CONFIG FILES]]
 - [[#dotfiles-control][DOTFILES CONTROL]]
 
@@ -445,23 +444,23 @@ Defining the various fonts that Emacs will use.
 
 ** LIGATURES
 #+begin_src emacs-lisp
-(use-package ligature
-  :ensure t
-  :config
-  (ligature-set-ligatures 'prog-mode
-                          '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "||=" "||>"
-                            ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
-                            "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
-                            "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
-                            "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
-                            "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
-                            "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
-                            "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
-                            ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
-                            "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
-                            "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
-                            "?=" "?." "//" "__" "~~" "(*" "*)"))
-  (global-ligature-mode t))
+;; (use-package ligature
+;;   :ensure t
+;;   :config
+;;   (ligature-set-ligatures 'prog-mode
+;;                           '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "||=" "||>"
+;;                             ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+;;                             "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+;;                             "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+;;                             "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+;;                             "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+;;                             "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+;;                             "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+;;                             ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+;;                             "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+;;                             "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+;;                             "?=" "?." "//" "__" "~~" "(*" "*)"))
+;;   (global-ligature-mode t))
 
 #+end_src
 
@@ -648,8 +647,13 @@ org-modern-replace-stars ""
    '(org-modern-block ((t (:background "#1e1e1e" :foreground "#bbbbbb" :inherit fixed-pitch)))))
 
 (use-package org-superstar
+  :hook (org-mode . org-superstar-mode)
   :config
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+  ;; Hide all leading stars completely
+  (setq org-superstar-remove-leading-stars t)
+  (setq org-superstar-headline-bullets-list '(" "))
+  ;; Keep headline text styled properly
+  (setq org-hide-leading-stars nil))
 
 #+end_src
 
@@ -882,19 +886,22 @@ org-modern-replace-stars ""
 
 (setq eshell-prompt-function
       (lambda ()
-        (concat
-         (propertize "┌─[" 'face `(:foreground "#b8bb26")) ; green
-         (propertize (user-login-name) 'face `(:foreground "#fb4934")) ; red
-         (propertize "@" 'face `(:foreground "#b8bb26")) ; green
-         (propertize (system-name) 'face `(:foreground "#83a598")) ; blue
-         (propertize "]──[" 'face `(:foreground "#b8bb26")) ; green
-         (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "#fabd2f")) ; yellow
-         (propertize "]──[" 'face `(:foreground "#b8bb26")) ; green
-         (propertize (concat (eshell/pwd)) 'face `(:foreground "#8ec07c")) ; aqua
-         (propertize "]\n" 'face `(:foreground "#b8bb26")) ; green
-         (propertize "└─>" 'face `(:foreground "#b8bb26")) ; green
-         (propertize (if (= (user-uid) 0) " # " " $ ") 'face `(:foreground "#fb4934")) ; red if root
-         )))
+        (let* ((exit-code eshell-last-command-status)
+               (status-color (if (and exit-code (= exit-code 0))
+                                 "#b8bb26" ; green if success
+                               "#fb4934"))) ; red if error
+          (concat
+           (propertize "┌─[" 'face `(:foreground "#b8bb26")) ; green
+           (propertize (user-login-name) 'face `(:foreground "#fb4934")) ; red
+           (propertize "@" 'face `(:foreground "#b8bb26")) ; green
+           (propertize (system-name) 'face `(:foreground "#83a598")) ; blue
+           (propertize "]──[" 'face `(:foreground "#b8bb26")) ; green
+           (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "#fabd2f")) ; yellow
+           (propertize "]──[" 'face `(:foreground "#b8bb26")) ; green
+           (propertize (concat (eshell/pwd)) 'face `(:foreground "#8ec07c")) ; aqua
+           (propertize "]\n" 'face `(:foreground "#b8bb26")) ; green
+           (propertize "└─>" 'face `(:foreground "#b8bb26")) ; green
+           (propertize (if (= (user-uid) 0) " # " " $ ") 'face `(:foreground ,status-color))))))
 
 #+end_src
 
@@ -1219,26 +1226,6 @@ org-modern-replace-stars ""
 ** WEB SHIT
 #+begin_src emacs-lisp
 (use-package web-mode)
-#+end_src
-
-** DISCORD RECOVER WIFE
-script for wife without possibly sensitive information [[/home/yousef/.emacs.d/scripts/recover_this_wife_censored.py][here]]
-script for wife without possibly sensitive information [[/home/yousef/.emacs.d/scripts/get_job_censored.py][here]]
-
-#+begin_src emacs-lisp
-(defun recover-my-wife ()
-  "Wife gone? No problem. emacs got you covered"
-  (interactive)
-  (message "starting wife recovery")
-  (let ((script-path "/home/yousef/.emacs.d/scripts/recover_this_wife.py"))
-    (start-process "discord-dm" "*discord-dm-output*" script-path)))
-
-(defun get-job ()
-  "No job? No problem. emacs got you coverd... agian."
-  (interactive)
-  (message "Looking for a job")
-  (let ((script-path "/home/yousef/.emacs.d/scripts/get_job.py"))
-    (start-process "discord-dm" "*discord-dm-output*" script-path)))
 #+end_src
 
 * CONFIG FILES

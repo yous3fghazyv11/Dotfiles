@@ -1,17 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# record-wayland.sh — Works on GNOME, KDE, Hyprland, Sway, Niri, etc.
 
-if pgrep -x "wf-recorder" > /dev/null; then
-    pkill -INT -x wf-recorder
-    notify-send -h string:wf-recorder:record -t 1000 "🎥 Finished Recording"
-    exit 0
-fi
+OUTPUT="${1:-recording_$(date +%F_%H-%M-%S).mkv}"
+FPS=30
+BITRATE=6000K
+AUDIO_DEVICE="default"
 
-notify-send --expire-time 1500 "🎬 Recording started"
+echo "🎥 Select the screen or window to capture in the popup that appears."
 
-dateTime=$(date +%m-%d-%Y-%H:%M:%S)
-    #--audio=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor\
-    #--audio=combined_out.monitor \
-wf-recorder \
-    --bframes max_b_frames \
-    --audio=alsa_output.usb-Logitech_Inc._Logi_USB_Headset_H340-00.analog-stereo.monitor\
-    -f "$HOME/Videos/$dateTime.mp4" &
+ffmpeg \
+    -f pipewire -i "$(pw-record --list-targets | grep -oP '(?<=id: )[0-9]+' | head -n1)" \
+    -f pulse -i "$AUDIO_DEVICE" \
+    -vaapi_device /dev/dri/renderD128 \
+    -vf 'format=nv12,hwupload' \
+    -c:v h264_vaapi -b:v "$BITRATE" -r "$FPS" \
+    -c:a aac -b:a 160k \
+    -y "$OUTPUT"

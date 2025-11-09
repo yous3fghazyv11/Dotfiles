@@ -1,18 +1,21 @@
 {
     "layer": "top", 
+    "output": "DP-2",
     "reload_style_on_change": true,
     "exclusive": true,
     "passthrough": false,
+    "height": 30,
     "modules-left": [
-        "custom/spacer-right",
-        "custom/cavatext",
-        "cava",
-    ],
-    "modules-center": [
+        "custom/workspaces-text",
+        "niri/workspaces",
         "custom/arch",
         "niri/window",
     ],
+    "modules-center": [
+    ],
     "modules-right": [
+        "custom/clocktext",
+        "clock",
         "custom/pulseaudiotext",
         "pulseaudio",
         "custom/pulseaudio2",
@@ -23,6 +26,9 @@
         "custom/languagetext",
         "niri/language",
     ],
+    "custom/workspaces-text": {
+    "format": "󰹑 ",
+    },
     "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -129,5 +135,14 @@
         "format" : "⏻ ",
 		"tooltip": false,
         "on-click": "rofi -show power-menu -show-icons -modi power-menu:rofi-power-menu"
+    },
+    "custom/clocktext": {
+    "format" : "󰥔",
+    },
+    "clock": {
+        "format": "{:%I:%M%p}",
+        "icon": "/home/yousef/protein-svgrepo-com.svg",
+        "on-click": "eww open date --toggle",
+        "tooltip": false
     },
 }
